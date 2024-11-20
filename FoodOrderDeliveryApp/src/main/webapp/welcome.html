@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Order Application - Login & Register</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideOut {
+        from {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateX(-100%);
+          opacity: 0;
+        }
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f4f8; /* Light blue-gray background */
+        color: #333;
+      }
+
+      header {
+        background-color: #ffc107; /* Soft yellow */
+        color: #333;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 24px;
+      }
+
+      nav {
+        background-color: #fff; /* Light background for navbar */
+        padding: 10px 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      nav ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        justify-content: center;
+      }
+
+      nav ul li {
+        margin: 0 15px;
+      }
+
+      nav ul li a {
+        color: #333;
+        text-decoration: none;
+        font-size: 18px;
+        padding: 5px 15px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+
+      nav ul li a:hover {
+        background-color: #ffc107; /* Soft yellow hover */
+        color: #fff;
+      }
+
+      .container {
+        display: flex;
+        width: 100%;
+        max-width: 1200px;
+        margin: 30px auto;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        border-radius: 12px;
+        overflow: hidden;
+        background-color: #fff;
+      }
+
+      .content {
+        flex: 2;
+        padding: 30px;
+        background-color: #f9f9f9;
+      }
+
+      .form-box {
+        flex: 1;
+        padding: 30px;
+        background: #fdfdfd;
+        box-shadow: -2px 0 12px rgba(0, 0, 0, 0.05);
+        position: relative;
+      }
+
+      .logo img {
+        max-width: 180px;
+        display: block;
+        margin: 0 auto 30px;
+      }
+
+      .button-box {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+      }
+
+      .toggle-btn {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 30px;
+        background: #ffc107; /* Soft yellow */
+        color: #333;
+        cursor: pointer;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .toggle-btn:hover {
+        background: #f0a500; /* Darker yellow */
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        animation: slideIn 0.5s forwards;
+      }
+
+      .input-field {
+        position: relative;
+        margin-bottom: 20px;
+      }
+
+      .input-field i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+      }
+
+      .input-field input {
+        width: 100%;
+        padding: 12px 50px;
+        border: 1px solid #ccc;
+        border-radius: 30px;
+        font-size: 16px;
+        box-sizing: border-box;
+      }
+
+      .submit-btn {
+        padding: 12px;
+        border: none;
+        border-radius: 30px;
+        background: #ffc107; /* Soft yellow */
+        color: #333;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .submit-btn:hover {
+        background: #f0a500; /* Darker yellow */
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      h2,
+      h3,
+      h4 {
+        margin-bottom: 20px;
+        color: #333;
+        font-weight: 600;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      h3 {
+        font-size: 22px;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      ul li {
+        margin-bottom: 10px;
+        font-size: 16px;
+      }
+
+      footer {
+        margin-top: 30px;
+        text-align: center;
+        padding: 20px;
+        background: #f1f1f1;
+        color: #333;
+        font-size: 14px;
+      }
+
+      footer .footer-links {
+        margin: 15px 0;
+      }
+
+      footer .footer-links a {
+        color: #ffc107; /* Soft yellow */
+        margin: 0 10px;
+        text-decoration: none;
+      }
+
+      footer .footer-links a:hover {
+        text-decoration: underline;
+      }
+
+      footer p {
+        margin: 10px 0;
+      }
+
+      /* Social Media Section */
+      footer .social-media {
+        margin: 15px 0;
+      }
+
+      footer .social-media a {
+        color: #333;
+        font-size: 20px;
+        margin: 0 10px;
+        display: inline-block;
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+
+      footer .social-media a:hover {
+        color: #ffc107; /* Soft yellow */
+        transform: scale(1.1);
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: column;
+        }
+
+        .content,
+        .form-box {
+          width: 100%;
+        }
+
+        nav ul {
+          flex-direction: column;
+        }
+
+        nav ul li {
+          margin-bottom: 10px;
+        }
+      }
+      
+      
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to QuickBite Food Order</h1>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Menu</a></li>
+        <li><a href="#">Offers</a></li>
+        <li><a href="#">Order Now</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <div class="content">
+        <h2>About QuickBite</h2>
+        <p>
+          QuickBite is your one-stop solution for delicious and fresh food
+          delivered straight to your door. With a wide variety of cuisines and
+          dishes, we ensure there's something to satisfy every craving.
+        </p>
+        <h3>Why Choose QuickBite?</h3>
+        <ul>
+          <li>🍽️ A wide variety of dishes from multiple cuisines.</li>
+          <li>🛵 Fast and reliable delivery services.</li>
+          <li>📱 Easy-to-use online ordering system.</li>
+          <li>🌱 Fresh ingredients for every meal.</li>
+        </ul>
+        <h3>Order Today!</h3>
+        <p>
+          Ready to enjoy a delicious meal? Sign up or log in to place your first
+          order with us. Exclusive deals and offers await!
+        </p>
+      </div>
+
+      <div class="form-box">
+        <div class="logo">
+          <img
+            src="https://via.placeholder.com/150x50.png?text=QuickBite"
+            alt="QuickBite Logo"
+          />
+        </div>
+
+        <!-- Button Toggle for Login/Register -->
+        <div class="button-box">
+          <button class="toggle-btn" onclick="login()">Login</button>
+          <button class="toggle-btn" onclick="register()">Register</button>
+        </div>
+
+        <!-- Login Form -->
+        <!-- Login Form -->
+<form action="Login" id="login" class="input-group">
+  <div class="input-field">
+    <i class="fas fa-envelope"></i>
+    <input
+      type="email"
+      placeholder="Email"
+      required
+      class="input"
+      name="email"
+    />
+  </div>
+  <div class="input-field">
+    <i class="fas fa-lock"></i>
+    <input
+      type="password"
+      placeholder="Password"
+      required
+      class="input"
+      name="password"
+    />
+  </div>
+  <div class="input-field">
+    <input type="submit" class="submit-btn" value="Login" />
+  </div>
+</form>
+
+
+        <!-- Register Form -->
+        <form action="Validation" id="register" class="input-group" style="display: none;">
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input
+              type="text"
+              placeholder="Full Name"
+              required
+              class="input"
+              name="name"
+            />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-envelope"></i>
+            <input
+              type="email"
+              placeholder="Email"
+              required
+              class="input"
+              name="email"
+            />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-phone"></i>
+            <input
+              type="tel"
+              placeholder="Mobile Number"
+              required
+              class="input"
+              name="phone"
+            />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-home"></i>
+            <input
+              type="text"
+              placeholder="Address"
+              required
+              class="input"
+              name="address"
+            />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input
+              type="password"
+              placeholder="Password"
+              required
+              class="input"
+              name="password"
+            />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              required
+              class="input"
+              name="confirm-password"
+            />
+          </div>
+          <div class="input-field">
+            <input type="submit" class="submit-btn">Register</input>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Help</a>
+      </div>
+      <p>© 2024 QuickBite - All Rights Reserved</p>
+      <div class="social-media">
+        <a href="#" class="fab fa-facebook"></a>
+        <a href="#" class="fab fa-twitter"></a>
+        <a href="#" class="fab fa-instagram"></a>
+      </div>
+    </footer>
+
+    <script>
+    function login() {
+    	  document.getElementById("login").style.display = "block";
+    	  document.getElementById("register").style.display = "none";
+    	}
+    	function register() {
+    	  document.getElementById("login").style.display = "none";
+    	  document.getElementById("register").style.display = "block";
+    	}
+
+    </script>
+  </body>
+</html>
