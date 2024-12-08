@@ -1,19 +1,31 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="com.app.MenuDAO.Menu" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.app.MenuDAO.MenuDAO" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
+<%@ page import="com.app.order.Order" %>
 <%@ page import="com.app.UserDao.User" %>
+<%@ page import="com.app.MenuDAO.Menu" %>
+<%@ page import="com.app.MenuDAO.MenuDAOImpl" %>
+<%@ page import="com.app.RestaurantDao.Restaurant" %>
+<%@ page import="com.app.RestaurantDao.RestaurantDAOImpl" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.TreeMap" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Order Application - View Menu</title>
-    <!-- Bootstrap CSS -->
+    <title>Order History</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Your custom CSS file -->
+<link href="styles.css" rel="stylesheet">
+    
     <style>
         html, body {
             height: 100%;
@@ -182,41 +194,6 @@
     background-color: #e0a800;
 }
  .btn-view {
-            background-color: #ffc107;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-view:hover {
-            background-color: #e0a800;
-        }
-        
- body.blur > *:not(#messageBox) {
-            filter: blur(5px);
-            pointer-events: none; /* Disable interactions with the blurred content */
-        }
-
-        .card {
-            margin: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
-            transition: transform 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-10px); /* Card hover effect */
-        }
-        .card-body h5 {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #333;
-        }
-        .card-body p {
-            color: #555;
-        }
-        .btn-view {
             background-color: #ffc107; /* Yellow for consistency with theme */
             color: white;
             border: none;
@@ -227,8 +204,57 @@
         }
         .btn-view:hover {
             background-color: #e0a800; /* Darker yellow on hover */
+        
+ body.blur > *:not(#messageBox) {
+            filter: blur(5px);
+            pointer-events: none; /* Disable interactions with the blurred content */
         }
-        /* Styling for the message box */
+  }
+.btn-view {
+    background-color: #ffc107; /* Consistent Yellow Theme */
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin-bottom: 10px; /* Add spacing below each button */
+    transition: background-color 0.3s ease;
+}
+
+.btn-view:hover {
+    background-color: #e0a800; /* Darker Yellow on Hover */
+}
+
+.btn-view + .btn-view {
+    margin-left: 10px; /* Add spacing between "View Details" and "Reorder" buttons */
+}
+
+button[type="submit"] {
+    display: inline-block;
+    width: 100%; /* Optional: Align width with other buttons */
+    margin-top: 5px; /* Add spacing above Reorder button */
+}
+        .container {
+            margin-top: 30px;
+            max-width: 1200px; /* Center container and limit width */
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        .modal-header, .modal-footer {
+            background-color: #f1f1f1;
+        }
+        .modal-body {
+            overflow-y: auto;
+        }
+        .btn {
+            font-size: 14px;
+        }
+        .order-group-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+         /* Styling for the message box */
         .message-box {
             display: none;
             position: fixed;
@@ -257,8 +283,52 @@
                 transform: translate(-50%, -50%);
             }
         }
-        
-        .card {
+        .table th, .table td {
+    text-align: center; /* Center text in table cells */
+    padding: 15px; /* Increase padding for better readability */
+}
+
+.modal-dialog {
+    max-width: 90%; /* Increase modal width */
+}
+
+.modal-body {
+    max-height: 400px; /* Add a max height to modal content */
+    overflow-y: auto; /* Add scrolling if content overflows */
+}
+
+/* Custom header color for the order title */
+.text-custom {
+    color: #4CAF50; /* You can change this to your desired color */
+    font-weight: bold;
+}
+
+/* Styling the card body */
+.card-body {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling the order details section */
+.order-details {
+    margin-top: 15px;
+}
+
+.order-details div {
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-family: 'Arial', sans-serif;
+}
+
+
+/* Modal styling */
+.modal-content {
+    border-radius: 15px;
+}
+
+      .card {
             margin: 15px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
             transition: transform 0.3s ease;
@@ -272,185 +342,16 @@
             color: #333;
         }
         .card-body p {
-            color: #555;
-        }
-        .btn-view {
-            background-color: #ffc107; /* Yellow for consistency with theme */
-            color: white;
-            border: none;
-            border-radius: 30px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-        }
-        .btn-view:hover {
-            background-color: #e0a800; /* Darker yellow on hover */
-        }
-        .btn-cart {
-            background-color: #28a745; /* Green for the cart button */
-            color: white;
-            border: none;
-            border-radius: 30px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-        }
-        .btn-cart:hover {
-            background-color: #218838; /* Darker green on hover */
-        }
-       
-        /* Additional Styles */
-        .btn-view-cart {
-            background-color: #ffc107; /* Yellow like Add to Cart */
-            color: white;
-            border: none;
-            border-radius: 30px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .btn-view-cart:hover {
-            background-color: #e0a800; /* Darker yellow on hover */
-            transform: scale(1.05); /* Slightly grow on hover */
-        }
-
-        .btn-view-cart i {
-            margin-left: 10px; /* Space between text and icon */
-            font-size: 1.2rem; /* Slightly larger icon */
-        }
-
-        .btn-view-cart:active {
-            transform: scale(0.98); /* Button shrinks slightly when clicked */
-        } .floating-cart-button {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        z-index: 1000;
-    }
-    
-    /* Button Style */
-    .btn-view-cart {
-        background-color: #ffc107; /* Yellow color */
-        color: white;
-        border: none;
-        border-radius: 30px;
-        padding: 10px 20px;
-        font-size: 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    /* Hover Effect */
-    .btn-view-cart:hover {
-        background-color: #e0a800; /* Darker yellow on hover */
-        transform: scale(1.05); /* Slightly grow on hover */
-    }
-
-    /* Active state when clicked */
-    .btn-view-cart:active {
-        transform: scale(0.98); /* Button shrinks slightly when clicked */
-    }
-
-    /* Cart icon styling */
-    .btn-view-cart i {
-        margin-left: 10px; /* Space between text and icon */
-        font-size: 1.2rem; /* Slightly larger icon */
-    }
-
-      .floating-cart-button {
-        position: fixed;
-        bottom: 150px;
-        right: 30px;
-        z-index: 1000;
-        background-color: transparent;
-    }
-    
-    /* Button Style */
-    .floating-cart-button a {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 15px 20px;
-        background-color: #ffc107; /* Update with your website's primary color */
-        border-radius: 50%;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        text-decoration: none;
-        color: white;
-        font-size: 16px;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    /* Hover Effect */
-    .floating-cart-button a:hover {
-        background-color: #e0a800; /* Darker shade for hover */
-        transform: scale(1.05);
-    }
-
-    /* Text beside the cart icon */
-    .floating-cart-button .cart-text {
-        margin-left: 10px;
-    }
-
-    /* Cart item count */
-    .floating-cart-button .cart-count {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        background-color: #e74c3c; /* Red color for the count badge */
-        color: white;
-        padding: 5px 10px;
-        border-radius: 50%;
-        font-size: 12px;
-    }
-    
-.card-img-top {
-    height: 200px; /* Adjust height as needed */
-    object-fit: cover; /* Ensures the image fills the space without distortion */
-    border-top-left-radius: calc(0.25rem - 1px); /* Matches Bootstrap's card border radius */
-    border-top-right-radius: calc(0.25rem - 1px);
-    padding: 5px; /* Add padding inside the image container */
-    border: 3px solid transparent; /* Default transparent border */
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card-img-top:hover {
-    transform: scale(1.05); /* Slight zoom effect on hover */
-    border-color: #ffc107; /* Highlight border on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
-    border-radius: 10px; /* Extra rounding on hover for a modern look */
-}
-.card-img-top::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 3px dashed #ffc107; /* Decorative dashed border */
-    border-radius: 10px;
-    opacity: 0; /* Hidden by default */
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-}
-
-.card-img-top:hover::after {
-    opacity: 1; /* Show on hover */
-}
-
+            color: #555;       
     </style>
 </head>
-
 <body>
 
+
       <!-- Back Button -->
-      <a href="ShowRestaurant">  <button class="back-btn" >
+        <button class="back-btn" onclick="navigateToBackPage()">
             <i class="fas fa-arrow-left"></i>
-        </button> </a>
+        </button>
            
         <!-- Profile Button -->
         <button class="profile-btn" onclick="toggleProfileBox()">
@@ -491,69 +392,137 @@
             </ul>
         </nav>
   
-   <center><h1>Menu for Restaurant</h1></center> 
-
     <div class="container">
-        <div class="row">
-            <% 
+        <h1 class="text-center mb-4">Order History</h1>
+
+        <% 
+            // Fetch the order list from the session
+            List<Order> orders = (List<Order>) session.getAttribute("order");
+            MenuDAOImpl menuDAO = new MenuDAOImpl();
+            RestaurantDAOImpl restaurantDAO = new RestaurantDAOImpl();
             
-            List<Menu> menuList = (List<Menu>) session.getAttribute("Menu");
-                if (menuList != null && !menuList.isEmpty()) {
-                    for (Menu menu : menuList) {
-            %>
-            <!-- Menu Item Card -->
-           <div class="col-md-4">
-    <div class="card">
-            <img src="<%= menu.getImageUrl() %>"  class="card-img-top img-fluid rounded shadow"  alt="<%= menu.getMenuName() %>">
-    
+            // Group orders by orderSame value
+            Map<Integer, List<Order>> groupedOrders = new TreeMap<>();  // Changed to Integer
+            for (Order order : orders) {
+                int orderSame = order.getOrderSame();  // Assuming orderSame is an int in Order class
+                groupedOrders.computeIfAbsent(orderSame, k -> new ArrayList<>()).add(order);
+            }
+        %>
+
+        <!-- Order Cards Section -->
+        <% if (groupedOrders != null && !groupedOrders.isEmpty()) { %>
+            <div class="row">
+                <% 
+                    // Iterate over each orderSame group
+                    for (Map.Entry<Integer, List<Order>> entry : groupedOrders.entrySet()) {
+                        int orderSame = entry.getKey();
+                        System.out.println("OrderSame View"+orderSame);
+                        List<Order> groupedOrder = entry.getValue();
+                        for(Order order :groupedOrder){
+                        	System.out.println("DisplayOrder"+order);
+                        }
+                        Order firstOrder = groupedOrder.get(0); // Get the first order to display the restaurant details
+                        Restaurant restaurant = restaurantDAO.fetchSpecificId(firstOrder.getRestaurantId());
+                        Menu menu = menuDAO.fetchSpecificId(firstOrder.getMenuId());
+                        
+                        // Calculate total quantity and total amount for this group of orders
+                        int totalQuantity = 0;
+                        float totalAmount = 0;
+                        for (Order order : groupedOrder) {
+                            totalQuantity += order.getQuantity();
+                            totalAmount += order.getTotalAmount();
+                        }
+                %>
+<div class="col-md-4">
+    <div class="card shadow-sm">
         <div class="card-body">
-            <h5 class="card-title"><%= menu.getMenuName() %></h5>
-            <p class="card-text">Description: <%= menu.getDescription() %></p>
-            <p class="card-text">Price: ₹<%= menu.getPrice() %></p>
-            <p class="card-text">Rating: <%= menu.getRating() %> /5</p>
-          
-            <% if(menu.isAvailable()) { %>
-            <form method="post" action="AddToCartServlet">
-                <input type="hidden" name="menuId" value="<%= menu.getMenuId() %>">
-                <input type="hidden" name="menuName" value="<%= menu.getMenuName() %>">
-                <input type="hidden" name="price" value="<%= menu.getPrice() %>">
-                <button type="submit" class="btn btn-view">
-                    Add to Cart <i class="fas fa-shopping-cart"></i>
-                </button>
-            </form>
-            <% } else { %>
-            <button class="btn btn-secondary" disabled>Out of Stock</button>
-            <% } %>
+            <h5 class="order-group-title text-custom">Order Group: <%= restaurant.getRestaurantId() %></h5>
+            <div class="order-details">
+                <div><strong>Total Quantity:</strong> <%= totalQuantity %></div>
+                <div><strong>Total Amount:</strong> ₹<%= totalAmount %></div>
+                <div><strong>Status:</strong> <%= firstOrder.getStatus() %></div>
+                <div><strong>Address:</strong> <%= firstOrder.getAddress() %></div>
+                <div><strong>Payment:</strong> <%= firstOrder.getPayment() %></div>
+            </div>
+       <button type="button" class="btn-view btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#orderModal<%= orderSame %>">
+    View Details
+</button>
+
+<!-- Reorder Button -->
+<form action="ReOrderServlet" method="POST" style="display:inline;">
+    <input type="hidden" name="orderSame" value="<%= orderSame %>">
+    <button type="submit" class="btn-view btn btn-warning btn-sm">
+        Reorder
+    </button>
+</form>
         </div>
     </div>
 </div>
 
-            <% 
-                    }
-                } else {
-            %>
-            <div style="text-align: center;">No menu items found for this restaurant</div>
-            <% } %>
+
+                <!-- Modal for Order Details -->
+<div class="modal fade" id="orderModal<%= orderSame %>" tabindex="-1" aria-labelledby="orderModalLabel<%= orderSame %>" aria-hidden="true">
+    <div class="modal-dialog modal-lg"> <!-- Updated to modal-lg for larger size -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderModalLabel<%= orderSame %>">Order Group Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Display a table of all orders in this group -->
+                <table class="table table-striped table-hover table-sm"> <!-- Added table-sm for smaller text -->
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Restaurant Name</th>
+                            <th>Menu Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Payment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (Order order : groupedOrder) { 
+                            Menu menuDetail = menuDAO.fetchSpecificId(order.getMenuId());
+                            Restaurant restaurantDetail = restaurantDAO.fetchSpecificId(order.getRestaurantId());  // Fetch restaurant details
+                        %>
+                        <tr>
+                            <td><%= order.getOrderId() %></td>
+                            <td><%= restaurantDetail.getRestaurantName() %></td> <!-- Display the restaurant name -->
+                            <td><%= menuDetail.getMenuName() %></td>
+                            <td><%= order.getQuantity() %></td>
+                            <td>₹<%= menuDetail.getPrice() %></td>
+                            <td>₹<%= order.getTotalAmount() %></td>
+                            <td><%= order.getStatus() %></td>
+                            <td><%= order.getPayment() %></td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
-
-    <!-- View Cart Button -->
-   <div class="floating-cart-button">
-    <a href="ViewAddToCart.jsp" class="btn btn-warning">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="cart-text">View Cart</span>
-        <span class="cart-count">3</span> <!-- Cart item count -->
-    </a>
 </div>
-    <br><br>
 
-   
-    <!-- Footer -->
-    <footer>
+                <% 
+                    } // End of orderSame group
+                } // End of grouped orders
+                %>
+            </div>
+       
+
+       
+    </div>
+<footer>
         <p>&copy; 2024 QuickBite Food Order. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
     </footer>
     
-    <script>
+  <script>
     // Toggle Profile Box visibility
     function toggleProfileBox() {
         var profileBox = document.getElementById("profile-box");
@@ -580,7 +549,9 @@
    	 window.location.href = 'UserEdit.jsp';
    }
   
-
+    function navigateToBackPage(){
+    	window.history.back();
+      }
     function navigateToPage() {
        
         // Show the message box with a fade-in effect
@@ -592,21 +563,20 @@
         }, 2000);  // 2 seconds delay before redirection
     }
     
-    document.addEventListener('DOMContentLoaded', () => {
-        const images = document.querySelectorAll('.card-img-top');
-
-        images.forEach((image) => {
-            image.addEventListener('mouseover', () => {
-                image.style.filter = 'brightness(1.1)'; // Brighten the image slightly
-            });
-
-            image.addEventListener('mouseout', () => {
-                image.style.filter = 'brightness(1)'; // Reset brightness
-            });
+    
+    document.querySelectorAll('tr').forEach(function(row) {
+        row.addEventListener('mouseenter', function() {
+            row.style.transition = "background-color 0.3s ease";
+            row.style.backgroundColor = "#f1c40f"; // Highlight on hover
+        });
+        row.addEventListener('mouseleave', function() {
+            row.style.backgroundColor = "";
         });
     });
 </script>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
 </body>
-</html>
+</html> 

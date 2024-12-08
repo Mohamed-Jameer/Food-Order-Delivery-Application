@@ -10,7 +10,7 @@ public class MenuDAOImpl implements MenuDAO {
 
     List<Menu> menuList = new ArrayList<>();
     
-    private final String INSERT_QUERY = "INSERT INTO menu(restaurantId, menuName, description, price, rating, isAvailable) VALUES(?, ?, ?, ?, ?, ?)";
+    private final String INSERT_QUERY = "INSERT INTO menu(restaurantId, menuName, description, price, rating, isAvailable,imageUrl) VALUES(?, ?, ?, ?, ?, ?,?)";
     private final String FETCH_ALL_QUERY = "SELECT * FROM menu";
     private final String FETCH_SPECIFIC_ID_QUERY = "SELECT * FROM menu WHERE menuId = ?";
     private final String DELETE_BY_ID_QUERY = "DELETE FROM menu WHERE menuId = ?";
@@ -47,6 +47,7 @@ public class MenuDAOImpl implements MenuDAO {
             pstmt.setFloat(4, m.getPrice());
             pstmt.setInt(5, m.getRating());
             pstmt.setBoolean(6, m.isAvailable());
+            pstmt.setString(7, m.getImageUrl());
             
             status = pstmt.executeUpdate();
             
@@ -83,7 +84,9 @@ public class MenuDAOImpl implements MenuDAO {
                         resultSet.getString("description"),
                         resultSet.getFloat("price"),
                         resultSet.getInt("rating"),
-                        resultSet.getBoolean("isAvailable")
+                        resultSet.getBoolean("isAvailable"),
+                        resultSet.getString("imageUrl")
+                        
                 ));
             }
         } catch (Exception e) {

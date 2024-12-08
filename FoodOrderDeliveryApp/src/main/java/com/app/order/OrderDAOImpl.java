@@ -8,9 +8,11 @@ import java.util.List;
 public class OrderDAOImpl implements OrderDAO {
 
     private final String FETCH_ORDER_BY_ID_QUERY = "SELECT * FROM order_history WHERE orderId = ?";
-    private final String INSERT_ORDER_HISTORY_QUERY = "INSERT INTO order_history(userId, restaurantId, menuId, quantity, totalAmount, payment, dateTime, status,address) VALUES(?, ?, ?, ?, ?, ?, ?, ?,?)";
+    private final String INSERT_ORDER_HISTORY_QUERY = "INSERT INTO order_history(userId, restaurantId, menuId, quantity, totalAmount, payment, dateTime, status,address,OrderSame) VALUES(?, ?, ?, ?, ?, ?, ?, ?,?,?)";
     private final String UPDATE_ORDER_HISTORY_QUERY = "UPDATE order_history SET status = ? WHERE orderId = ?";
     private final String FETCH_ORDERS_BY_USER_ID = "SELECT * FROM order_history WHERE userId = ?";
+    private final String MAX_USER_ID ="SELECT orderId FROM order_history ORDER BY orderId DESC LIMIT 1";
+    private final String GET_USERS ="SELECT * FROM order_history WHERE OrderSame = ?";
     
     private String url = "jdbc:mysql://localhost:3306/db";
     private String user = "root";
@@ -20,7 +22,9 @@ public class OrderDAOImpl implements OrderDAO {
     private ResultSet resultSet;
     private int status;
     private Order order;
-    List<Order> orderList = new ArrayList<>();;
+    List<Order> orderList = new ArrayList<>();
+    
+	private int lastOrderId  = -1;
     
     public OrderDAOImpl() {
         try {
@@ -41,6 +45,7 @@ public class OrderDAOImpl implements OrderDAO {
             
             if (orderList.size()>0) {
                 order = orderList.get(0);
+                System.out.println("Order Found for ID: " + id);
             }
             else {
             	   System.out.println("No Order Found for ID: " + id);
@@ -65,7 +70,7 @@ public class OrderDAOImpl implements OrderDAO {
             pstmt.setTimestamp(7, o.getDateTime());
             pstmt.setString(8, o.getStatus());
             pstmt.setString(9, o.getAddress());
-
+            pstmt.setInt(10, o.getOrderSame());
             status = pstmt.executeUpdate();
             
             if (status != 0) {
@@ -99,7 +104,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
     
     @Override
-    public Order fetchOrdersByUserId(int userId) {
+    public List<Order> fetchOrdersByUserId(int userId) {
         try {
             pstmt = con.prepareStatement(FETCH_ORDERS_BY_USER_ID);
             pstmt.setInt(1, userId);
@@ -115,8 +120,34 @@ public class OrderDAOImpl implements OrderDAO {
             e.printStackTrace();
         }
 
-        return order;
+        return orderList;
     }
+    
+    public List<Order> getOrders(int OrderSame) {
+        try {
+        	orderList.clear();
+            pstmt = con.prepareStatement(GET_USERS);
+            pstmt.setInt(1, OrderSame);
+            resultSet = pstmt.executeQuery();
+            orderList = extractStudentFromResultSet(resultSet);
+            
+            for(Order order : orderList) {
+            	System.out.println("JDBC "+order);
+            }
+            
+//            if (orderList.size()>0) {
+//                
+//            }
+//            else {
+//            	   System.out.println("No Order Found for ID: getOrders" + id);
+//                   System.exit(0);
+//            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return orderList;
+    }
+    
     
     List<Order> extractStudentFromResultSet(ResultSet resultSet ) {
 		  try {
@@ -131,7 +162,8 @@ public class OrderDAOImpl implements OrderDAO {
 	                    resultSet.getString("payment"),
 	                    resultSet.getTimestamp("dateTime"),
 	                    resultSet.getString("status"),
-	                    resultSet.getString("address")
+	                    resultSet.getString("address"),
+	                    resultSet.getInt("OrderSame")
 	                ));
 	               
 			  }
@@ -142,4 +174,25 @@ public class OrderDAOImpl implements OrderDAO {
 		  
 		  return orderList;
 	  }
+    
+      public int fetchLastOrderId() {
+    	  try {
+    	  pstmt = con.prepareStatement(MAX_USER_ID);
+    	  resultSet = pstmt.executeQuery();
+
+         if (resultSet.next()) {
+             lastOrderId = resultSet.getInt("orderId");
+      }
+    	  }
+    	  catch(Exception e) {
+    		  System.out.println(e);
+    	  }
+    	  
+    	  return lastOrderId;
+      }
+      
+
+     
 }
+    
+

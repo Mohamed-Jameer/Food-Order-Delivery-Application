@@ -256,10 +256,167 @@
                 transform: translate(-50%, -50%);
             }
         }
+        
+        
+
+      .floating-cart-button {
+        position: fixed;
+        bottom: 150px;
+        right: 30px;
+        z-index: 1000;
+        background-color: transparent;
+    }
+    
+    /* Button Style */
+    .floating-cart-button a {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px 20px;
+        background-color: #ffc107; /* Update with your website's primary color */
+        border-radius: 50%;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        text-decoration: none;
+        color: white;
+        font-size: 16px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    /* Hover Effect */
+    .floating-cart-button a:hover {
+        background-color: #e0a800; /* Darker shade for hover */
+        transform: scale(1.05);
+    }
+
+    /* Text beside the cart icon */
+    .floating-cart-button .cart-text {
+        margin-left: 10px;
+    }
+
+    /* Cart item count */
+    .floating-cart-button .cart-count {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: #e74c3c; /* Red color for the count badge */
+        color: white;
+        padding: 5px 10px;
+        border-radius: 50%;
+        font-size: 12px;
+    }
+.card-img-top {
+    height: 200px; /* Adjust height as needed */
+    object-fit: cover; /* Ensures the image fills the space without distortion */
+    border-top-left-radius: calc(0.25rem - 1px); /* Matches Bootstrap's card border radius */
+    border-top-right-radius: calc(0.25rem - 1px);
+    padding: 5px; /* Add padding inside the image container */
+    border: 3px solid transparent; /* Default transparent border */
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-img-top:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+    border-color: #ffc107; /* Highlight border on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+    border-radius: 10px; /* Extra rounding on hover for a modern look */
+}
+.card-img-top::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 3px dashed #ffc107; /* Decorative dashed border */
+    border-radius: 10px;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.card-img-top:hover::after {
+    opacity: 1; /* Show on hover */
+}
+  a {
+      text-decoration: none;
+    }
+    
+    
+     
+      #map-container {
+        display: none; /* Initially hide the map container */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        z-index: 1000;
+      }
+
+      #map {
+        height: 80%;
+        width: 80%;
+        margin: auto;
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      #closeButton {
+        position: absolute;
+        top: 10%;
+        right: 10%;
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        z-index: 1100;
+      }
+
+      #closeButton:hover {
+        background-color: darkred;
+      }
+
+      #showLocationBtn {
+        background-color: #ffc107; /* Green */
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        width: 100px;
+        heigth:100px;
+          border: 2px solid ;
+  border-radius: 12px;
+  padding: 5px;
+  
+    position: absolute;
+    top: 140px; /* Adjust the top distance as needed */
+    right: 20px;
+      }
+
+      #showLocationBtn:hover {
+        background-color: #45a049;
+      }
+      
+ 
     </style>
 </head>
 
 <body>
+
+ 
 
       <!-- Back Button -->
         <button class="back-btn" onclick="navigateToBackPage()">
@@ -301,12 +458,15 @@
                 <li><a href="#">Offers</a></li>
                 <li><a href="#">Order Now</a></li>
                 <li><a href="#">Contact Us</a></li>
+                <li><a href="ViewOrderHistoryServlet">Order History</a></li>
             </ul>
         </nav>
   
+   <br>
+    
+   <center><h1>Restaurant Listings</h1></center>     <button id="showLocationBtn">Location</button>   
    
-   <center><h1>Restaurant Listings</h1></center> 
-
+    
     <div class="container">
         <div class="row">
             <% 
@@ -316,18 +476,27 @@
                     for (Restaurant restaurant : restaurantList) {
             %>
             <!-- Restaurant Card -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><%= restaurant.getRestaurantName() %></h5>
-                        <p class="card-text">Cuisine Type: <%= restaurant.getCuisineType() %></p>
-                        <p class="card-text">Rating: <%= restaurant.getRating() %> /5 </p>
-                        <p class="card-text">Active: <%= restaurant.isActive() ? "Yes" : "No" %></p>
-                        <p class="card-text">Delivery Time: <%= restaurant.getDeliveryTime() %> min</p>
-                        <a href="ViewMenu?id=<%= restaurant.getRestaurantId() %>" class="btn-view">View Details</a>
-                    </div>
-                </div>
-            </div>
+            
+<div class="col-md-4">
+    <div class="card" style="<%= !restaurant.isActive() ? "opacity: 0.6; pointer-events: none;" : "" %>">
+    <img src="<%= restaurant.getImageUrl() %>" 
+     class="card-img-top img-fluid rounded shadow" 
+     alt="<%= restaurant.getRestaurantName() %>">
+
+        <div class="card-body">
+            <h5 class="card-title"><%= restaurant.getRestaurantName() %></h5>
+            <p class="card-text">Cuisine Type: <%= restaurant.getCuisineType() %></p>
+            <p class="card-text">Rating: <%= restaurant.getRating() %> /5</p>
+            <p class="card-text">Delivery Time: <%= restaurant.getDeliveryTime() %> min</p>
+            <% if (restaurant.isActive()) { %>
+                <a href="ViewMenu?id=<%= restaurant.getRestaurantId() %>"   class="btn-view">View Details</a>
+            <% } else { %>
+                <p class="text-danger">This restaurant is currently Closed.</p>
+            <% } %>
+        </div>
+    </div>
+</div>
+
             <% 
                     }
                 } else {
@@ -336,13 +505,103 @@
             <% } %>
         </div>
     </div>
+    
+      <div class="floating-cart-button">
+    <a href="ViewCartHome.jsp" class="btn btn-warning">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-text">View Cart</span>
+        <span class="cart-count">3</span> <!-- Cart item count -->
+    </a>
+    
+</div>
 
     <!-- Footer -->
     <footer>
         <p>&copy; 2024 QuickBite Food Order. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
     </footer>
+
+    <!-- Map container -->
+    <div id="map-container">
+      <button id="closeButton">Close</button>
+      <div id="map"></div>
+    </div>
+
+    <!-- Leaflet.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css"
+    />
+
+    <script>
+      let map; // Declare map variable globally
+
+      const showLocationBtn = document.getElementById("showLocationBtn");
+      const closeButton = document.getElementById("closeButton");
+      const mapContainer = document.getElementById("map-container");
+
+      // Function to initialize the map
+      function initializeMap(lat, lon) {
+        if (!map) {
+          // Initialize map if it hasn't been initialized
+          map = L.map("map").setView([lat, lon], 13);
+
+          // Add OpenStreetMap tiles
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution:
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          }).addTo(map);
+
+          // Add a marker at the user's location
+          L.marker([lat, lon])
+            .addTo(map)
+            .bindPopup("<b>You are here</b>")
+            .openPopup();
+        } else {
+          // If the map is already initialized, just update its position
+          map.setView([lat, lon], 13);
+          L.marker([lat, lon])
+            .addTo(map)
+            .bindPopup("<b>You are here</b>")
+            .openPopup();
+        }
+      }
+
+      // Show the map container and fetch user's location
+      showLocationBtn.addEventListener("click", () => {
+        mapContainer.style.display = "block";
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const lat = position.coords.latitude;
+              const lon = position.coords.longitude;
+              initializeMap(lat, lon);
+            },
+            () => {
+              alert("Unable to retrieve your location.");
+            }
+          );
+        } else {
+          alert("Geolocation is not supported by this browser.");
+        }
+      });
+
+      // Close the map container when clicking the close button
+      closeButton.addEventListener("click", () => {
+        mapContainer.style.display = "none";
+      });
+
+      // Close the map container when clicking outside the map
+      mapContainer.addEventListener("click", (event) => {
+        if (event.target === mapContainer) {
+          mapContainer.style.display = "none";
+        }
+      });
+    </script>
     
     <script>
+   
     // Toggle Profile Box visibility
     function toggleProfileBox() {
         var profileBox = document.getElementById("profile-box");
@@ -382,6 +641,20 @@
             window.location.href = 'welcome.html';  // Replace with your target page
         }, 2000);  // 2 seconds delay before redirection
     }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const images = document.querySelectorAll('.card-img-top');
+
+        images.forEach((image) => {
+            image.addEventListener('mouseover', () => {
+                image.style.filter = 'brightness(1.1)'; // Brighten the image slightly
+            });
+
+            image.addEventListener('mouseout', () => {
+                image.style.filter = 'brightness(1)'; // Reset brightness
+            });
+        });
+    });
 </script>
 
     <!-- Bootstrap JS -->

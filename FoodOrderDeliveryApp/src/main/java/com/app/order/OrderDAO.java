@@ -7,6 +7,6 @@ public interface OrderDAO {
     Order fetchOrderId(int id);
     void insertOrderHistory(Order o);
     int updateOrderHistory(int id, String status);
-    Order fetchOrdersByUserId(int userId);
-
+    List<Order> fetchOrdersByUserId(int userId);
+  int fetchLastOrderId();
 }

@@ -32,7 +32,7 @@ public class Validation extends HttpServlet {
 		 if(passWord.equals(ConfirmpassWord)) {	
 			 
 		   d = req.getRequestDispatcher("Register");
-		   d.include(req, resp);
+		   d.forward(req, resp);
 		   
 		    
 		 }else {

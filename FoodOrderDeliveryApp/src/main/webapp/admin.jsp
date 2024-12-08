@@ -20,7 +20,7 @@ pageEncoding="UTF-8"%>
         font-family: "Poppins", sans-serif;
         background-color: #f0f4f8;
       }
-      header {
+      #adminHeader {
         background-color: #343a40;
         color: white;
         padding: 15px;
@@ -44,9 +44,32 @@ pageEncoding="UTF-8"%>
     </style>
   </head>
 
-  <body>
+  <body>  
+  
+  
+        <div id="logoutMessage" class="message-box">
+    <p>You have successfully logged out. We hope to see you again soon!</p>
+</div>
+     <header>
+      <h1>Welcome to QuickBite Food Order</h1>
+    </header>
+        <!-- Navigation -->
+        <nav>
+            <ul>
+                <li><a href="ShowRestaurant">Home</a></li>
+                <li><a href="#">Menu</a></li>
+                <li><a href="#">Offers</a></li>
+                <li><a href="#">Order Now</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="ViewOrderHistoryServlet">Order History</a></li>
+            </ul>
+        </nav>
+  
+  
+  
+  
     <!-- Admin Header -->
-    <header>
+    <header id = "adminHeader">
       <h1>Admin Dashboard</h1>
     </header>
 

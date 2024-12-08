@@ -17,6 +17,8 @@ import com.app.MenuDAO.MenuDAOImpl;
 import com.app.UserDao.User;
 import com.app.order.Order;
 import com.app.order.OrderDAOImpl;
+import com.app.orderHistory.OrderHistory;
+import com.app.orderHistory.OrderHistoryDAOImpl;
 import com.app.orderItems.OrderItems;
 import com.app.orderItems.OrderItemsDAOImpl;
 
@@ -45,17 +47,26 @@ public class OrderItemPlaced extends HttpServlet {
         for (CartItem item : cart.values()) {
             totalAmount += item.getPrice() * item.getQuantity();
         }
-
+        int OrderSame = new OrderDAOImpl().fetchLastOrderId();   
+        
             for (CartItem item : cart.values()) {
             	Menu menu =  new MenuDAOImpl().fetchSpecificId(item.getMenuId());
-                Order orders = new Order(user.getId(),menu.getRestaurantId(),item.getMenuId(),item.getQuantity(),item.getPrice(),paymentMethod,Timestamp,status,deliveryAddress);
+                Order orders = new Order(user.getId(),menu.getRestaurantId(),item.getMenuId(),item.getQuantity(),item.getPrice(),paymentMethod,Timestamp,status,deliveryAddress,OrderSame);
                 orderDAOI.insertOrderHistory(orders);
-                
-               Order order = orderDAOI.fetchOrdersByUserId(user.getId());
-                OrderItems orderItems = new OrderItems(order.getOrderId(),item.getMenuId(),item.getQuantity(),item.getPrice(),user.getId(),deliveryAddress);
-                new OrderItemsDAOImpl().insert(orderItems);
-      
+
             }
+            
+            int OrderId = orderDAOI.fetchLastOrderId();
+            for (CartItem item : cart.values()) {
+            OrderItems orderItems = new OrderItems(OrderSame,item.getMenuId(),item.getQuantity(),item.getPrice(),user.getId(),deliveryAddress);
+            new OrderItemsDAOImpl().insert(orderItems);
+            }
+            
+            OrderHistory oh = new OrderHistory(user.getId(),OrderSame,totalAmount,Timestamp,status,deliveryAddress);
+            new OrderHistoryDAOImpl().insert(oh);
+           
+           
+            cart.clear();
             
             response.sendRedirect("ShowRestaurant");
 

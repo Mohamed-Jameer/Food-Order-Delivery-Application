@@ -8,8 +8,45 @@ public class Menu {
     private float price;
     private int rating;
     private boolean isAvailable;
+    private String imageUrl;
+    
 
-    // Constructors
+    public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	
+	
+
+	public Menu(int restaurantId, String menuName, String description, float price, int rating, boolean isAvailable,
+			String imageUrl) {
+		super();
+		this.restaurantId = restaurantId;
+		this.menuName = menuName;
+		this.description = description;
+		this.price = price;
+		this.rating = rating;
+		this.isAvailable = isAvailable;
+		this.imageUrl = imageUrl;
+	}
+
+	public Menu(int menuId, int restaurantId, String menuName, String description, float price, int rating,
+			boolean isAvailable, String imageUrl) {
+		super();
+		this.menuId = menuId;
+		this.restaurantId = restaurantId;
+		this.menuName = menuName;
+		this.description = description;
+		this.price = price;
+		this.rating = rating;
+		this.isAvailable = isAvailable;
+		this.imageUrl = imageUrl;
+	}
+
+	// Constructors
     public Menu() {
         super();
     }

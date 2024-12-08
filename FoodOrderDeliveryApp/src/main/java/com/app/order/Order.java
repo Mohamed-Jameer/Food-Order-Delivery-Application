@@ -14,23 +14,12 @@ public class Order {
     private Timestamp dateTime;
     private String status;
     private String address;
+    private int OrderSame;
 
-    public Order(int userId, int restaurantId, int menuId, int quantity, float totalAmount, String payment,
-			Timestamp dateTime, String status, String address) {
-		super();
-		this.userId = userId;
-		this.restaurantId = restaurantId;
-		this.menuId = menuId;
-		this.quantity = quantity;
-		this.totalAmount = totalAmount;
-		this.payment = payment;
-		this.dateTime = dateTime;
-		this.status = status;
-		this.address = address;
-	}
+ 
 
 	public Order(int orderId, int userId, int restaurantId, int menuId, int quantity, float totalAmount, String payment,
-			Timestamp dateTime, String status, String address) {
+			Timestamp dateTime, String status, String address, int orderSame) {
 		super();
 		this.orderId = orderId;
 		this.userId = userId;
@@ -42,6 +31,30 @@ public class Order {
 		this.dateTime = dateTime;
 		this.status = status;
 		this.address = address;
+		this.OrderSame = orderSame;
+	}
+  
+	public Order(int userId, int restaurantId, int menuId, int quantity, float totalAmount, String payment,
+			Timestamp dateTime, String status, String address, int orderSame) {
+		super();
+		this.userId = userId;
+		this.restaurantId = restaurantId;
+		this.menuId = menuId;
+		this.quantity = quantity;
+		this.totalAmount = totalAmount;
+		this.payment = payment;
+		this.dateTime = dateTime;
+		this.status = status;
+		this.address = address;
+		this.OrderSame = orderSame;
+	}
+
+	public int getOrderSame() {
+		return OrderSame;
+	}
+
+	public void setOrderSame(int orderSame) {
+		OrderSame = orderSame;
 	}
 
 	public Order() {
@@ -134,8 +147,11 @@ public class Order {
 	public String toString() {
 		return "Order [orderId=" + orderId + ", userId=" + userId + ", restaurantId=" + restaurantId + ", menuId="
 				+ menuId + ", quantity=" + quantity + ", totalAmount=" + totalAmount + ", payment=" + payment
-				+ ", dateTime=" + dateTime + ", status=" + status + ", address=" + address + "]";
+				+ ", dateTime=" + dateTime + ", status=" + status + ", address=" + address + ", OrderSame=" + OrderSame
+				+ "]";
 	}
+
+	
 
    
 }

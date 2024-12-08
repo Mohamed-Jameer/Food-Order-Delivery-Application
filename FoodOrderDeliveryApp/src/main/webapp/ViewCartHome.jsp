@@ -1,15 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="com.app.RestaurantDao.Restaurant" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.Map" %>
+<%@ page import="com.app.CartItems.CartItem" %>
 <%@ page import="com.app.UserDao.User" %>
-<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Order Application - Home</title>
-    <!-- Bootstrap CSS -->
+    <title>Your Cart</title>
+  <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -199,34 +198,6 @@
             pointer-events: none; /* Disable interactions with the blurred content */
         }
 
-        .card {
-            margin: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
-            transition: transform 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-10px); /* Card hover effect */
-        }
-        .card-body h5 {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #333;
-        }
-        .card-body p {
-            color: #555;
-        }
-        .btn-view {
-            background-color: #ffc107; /* Yellow for consistency with theme */
-            color: white;
-            border: none;
-            border-radius: 30px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-        }
-        .btn-view:hover {
-            background-color: #e0a800; /* Darker yellow on hover */
-        }
         /* Styling for the message box */
         .message-box {
             display: none;
@@ -258,7 +229,6 @@
         }
     </style>
 </head>
-
 <body>
 
       <!-- Back Button -->
@@ -301,49 +271,105 @@
                 <li><a href="#">Offers</a></li>
                 <li><a href="#">Order Now</a></li>
                 <li><a href="#">Contact Us</a></li>
-                <li><a href="ViewOrderHistoryServlet">Order History</a></li>
+              <li><a href="ViewOrderHistoryServlet">Order History</a></li>
             </ul>
         </nav>
   
    
-   <center><h1>Restaurant Listings</h1></center> 
+       <center><h1>Your Cart</h1></center> 
+  
 
     <div class="container">
-        <div class="row">
-            <% 
-                // Assuming 'restaurantList' is passed from the session
-                List<Restaurant> restaurantList = (List<Restaurant>) session.getAttribute("ListRestaurant");
-                if (restaurantList != null) {
-                    for (Restaurant restaurant : restaurantList) {
-            %>
-            <!-- Restaurant Card -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><%= restaurant.getRestaurantName() %></h5>
-                        <p class="card-text">Cuisine Type: <%= restaurant.getCuisineType() %></p>
-                        <p class="card-text">Rating: <%= restaurant.getRating() %> /5 </p>
-                        <p class="card-text">Active: <%= restaurant.isActive() ? "Yes" : "No" %></p>
-                        <p class="card-text">Delivery Time: <%= restaurant.getDeliveryTime() %> min</p>
-                        <a href="DeleteRestaurantAction?rid=<%= restaurant.getRestaurantId() %>" class="btn-view">Delete</a>
-                    </div>
-                </div>
-            </div>
-            <% 
-                    }
-                } else {
-            %>
-            <div style="text-align: center;">No restaurants found</div>
-            <% } %>
-        </div>
-    </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% 
+                Map<Integer, CartItem> cart = (Map<Integer, CartItem>) session.getAttribute("cart");
+                if (cart != null && !cart.isEmpty()) {
+                    float grandTotal = 0;
+                    for (Map.Entry<Integer, CartItem> entry : cart.entrySet()) {
+                        CartItem item = entry.getValue();
+                        float totalPrice = item.getPrice() * item.getQuantity();
+                        grandTotal += totalPrice;
+                %>
+                <tr>
+                    <td><%= item.getMenuName() %></td>
+                    <td>&#8377;<%= item.getPrice() %></td>
+                    <td>
+                        <form action="UpdateCartServlet" method="post" class="d-inline">
+                            <input type="hidden" name="menuId" value="<%= item.getMenuId() %>" />
+                            <button type="submit" name="action" value="decrease" class="btn btn-danger btn-sm">-</button>
+                        </form>
+                        <%= item.getQuantity() %>
+                        <form action="UpdateCartServlet" method="post" class="d-inline">
+                            <input type="hidden" name="menuId" value="<%= item.getMenuId() %>" />
+                            <button type="submit" name="action" value="increase" class="btn btn-success btn-sm">+</button>
+                        </form>
+                    </td>
+                    <td>&#8377;<%= totalPrice %></td>
+                    <td>
+                        <form action="UpdateCartServlet" method="post">
+                            <input type="hidden" name="menuId" value="<%= item.getMenuId() %>" />
+                            <button type="submit" name="action" value="remove" class="btn btn-danger btn-sm">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+                <% 
+                    } 
+                %>
+                <tr>
+                    <td colspan="3" class="text-right"><strong>Grand Total:</strong></td>
+                    <td><strong>&#8377;<%= grandTotal %></strong></td>
+                </tr>
+                
+                <% 
+                } else { 
+                %>
+                <tr>
+                    <td colspan="4" class="text-center">Your cart is empty</td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <!-- Checkout button -->
+       <!-- Checkout button and Clear Cart button -->
+<div class="text-center">
+    <a href="ShowRestaurant" class="btn btn-success">Continue Shopping</a>
 
+    <% if (cart != null && !cart.isEmpty()) { %>
+        <a href="OrderItems.jsp" class="btn btn-success">Proceed to Checkout</a>
+        
+        <!-- Clear Cart Button -->
+        <form action="ClearCart" method="post" style="display:inline-block;">
+            <button type="submit" class="btn btn-danger">Clear Cart</button>
+        </form>
+    <% } else { %>
+        <button class="btn btn-success" disabled>Proceed to Checkout</button>
+    <% } %>
+</div>
+    </div>
+  <br><br>
     <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 QuickBite Food Order. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
-    </footer>
-    
-    <script>
+     <footer>
+            <p>&copy; 2024 QuickBite. All Rights Reserved.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </footer>
+        
+  <!-- Scripts -->
+ <script>
     // Toggle Profile Box visibility
     function toggleProfileBox() {
         var profileBox = document.getElementById("profile-box");
@@ -369,10 +395,11 @@
     function navigateToEditPage(){
    	 window.location.href = 'UserEdit.jsp';
    }
-  
+    
     function navigateToBackPage(){
-      	 window.location.href = 'admin.jsp';
+      	 window.location.href = 'ShowRestaurant';
       }
+
     function navigateToPage() {
        
         // Show the message box with a fade-in effect
@@ -384,8 +411,7 @@
         }, 2000);  // 2 seconds delay before redirection
     }
 </script>
-
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap JS (Optional) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

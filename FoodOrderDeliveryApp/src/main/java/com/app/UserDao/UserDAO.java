@@ -10,4 +10,5 @@ public interface UserDAO {
     List<User> getAllUsers();
     void updateUser(User user);
     void deleteUser(int id);
+    void updateAdmin(User user);
 }

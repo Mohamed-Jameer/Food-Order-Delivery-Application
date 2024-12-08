@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.app.UserDao.User;
 import com.app.UserDao.UserDAO;
@@ -21,6 +22,7 @@ public class Register extends HttpServlet {
 	
 
 	private PrintWriter pw;
+	private HttpSession session;
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,7 +38,10 @@ public class Register extends HttpServlet {
 		 UserDAO userDAOI = new UserDAOImpl();
 		 userDAOI.addUser(user);
 		 
-	
+		 
+		 session = req.getSession();
+         session.setAttribute("user", user);
+		 resp.sendRedirect("ShowRestaurant");
 		 
 		 pw.println("Hello from servlet");
 	}

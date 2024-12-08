@@ -11,12 +11,12 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 
     List<Restaurant> restaurantList = new ArrayList<>();
     
-    private final String INSERT_QUERY = "INSERT INTO restaurant(restaurantName, cuisineType, address, rating, deliveryTime, isActive) VALUES(?, ?, ?, ?, ?, ?)";
+    private final String INSERT_QUERY = "INSERT INTO restaurant(restaurantName, cuisineType, address, rating, deliveryTime, isActive,imageUrl) VALUES(?, ?, ?, ?, ?, ?,?)";
     private final String FETCH_ALL_QUERY = "SELECT * FROM restaurant";
     private final String FETCH_SPECIFIC_ID_QUERY = "SELECT * FROM restaurant WHERE restaurantId = ?";
     private final String DELETE_BY_ID_QUERY = "DELETE FROM restaurant WHERE restaurantId = ?";
     private final String UPDATE_ACTIVE_STATUS_QUERY = "UPDATE restaurant SET isActive = ? WHERE restaurantId = ?";
-    private final String UPDATE_RESTAURANT = "UPDATE restaurant SET restaurantName = ?, cuisineType = ?, address = ?, rating = ?, deliveryTime = ?, isActive = ? WHERE restaurantId = ?";
+    private final String UPDATE_RESTAURANT = "UPDATE restaurant SET restaurantName = ?, cuisineType = ?, address = ?, rating = ?, deliveryTime = ?, isActive = ? , imageUrl = ? WHERE restaurantId = ?";
 
     
     private String url = "jdbc:mysql://localhost:3306/db";
@@ -48,6 +48,7 @@ public class RestaurantDAOImpl implements RestaurantDAO {
             pstmt.setInt(4, r.getRating());
             pstmt.setInt(5, r.getDeliveryTime());
             pstmt.setBoolean(6, r.isActive());
+            pstmt.setString(7, r.getImageUrl());
             
             status = pstmt.executeUpdate();
             
@@ -84,7 +85,8 @@ public class RestaurantDAOImpl implements RestaurantDAO {
                         resultSet.getString("address"),
                         resultSet.getInt("rating"),
                         resultSet.getInt("deliveryTime"),
-                        resultSet.getBoolean("isActive")
+                        resultSet.getBoolean("isActive"),
+                        resultSet.getString("imageUrl")
                 ));
             }
         } catch (Exception e) {
@@ -146,8 +148,9 @@ public class RestaurantDAOImpl implements RestaurantDAO {
                 pstmt.setInt(4, r.getRating());
                 pstmt.setInt(5, r.getDeliveryTime());
                 pstmt.setBoolean(6, r.isActive());
+                pstmt.setString(7, r.getImageUrl());
                 
-                pstmt.setInt(7, r.getRestaurantId());
+                pstmt.setInt(8, r.getRestaurantId());
                  pstmt.executeUpdate();
             } catch (Exception e) {
                 e.printStackTrace();

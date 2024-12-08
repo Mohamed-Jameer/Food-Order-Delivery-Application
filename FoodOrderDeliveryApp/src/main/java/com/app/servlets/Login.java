@@ -61,16 +61,22 @@ public class Login extends HttpServlet {
 		               	String Email = rs.getString("email");
 		        		 int  mobileno = Integer.parseInt(rs.getString("mobileno"));
 		        		 String address = rs.getString("address");
+		        		 String roleUser = rs.getString("roleUser");
 		        		
 		        		 
-		        		 User user = new User(id,name,Email,passWord,mobileno,address);
+		        		 User user = new User(id,name,Email,passWord,mobileno,address,roleUser);
 		        		 
 		                     session = req.getSession();
 		                     session.setAttribute("user", user);
 		                    
 		                     
 		                     
+		                     if(user.getRoleUser().equals("Customer")) {
 		                    resp.sendRedirect("ShowRestaurant");
+		                     }
+		                     else {
+		                    	 resp.sendRedirect("admin.jsp"); 
+		                     }
 		            
 		                } else {
 		                    pw.println("Password Mismatch");

@@ -59,7 +59,7 @@ public  class UserDAOImpl implements UserDAO {
 	             ResultSet rs = stmt.executeQuery(query)) {
 
 	            while (rs.next()) {
-	                User user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getInt("phoneNo"),rs.getString("address"));
+	                User user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getInt("phoneNo"),rs.getString("address"),rs.getString("roleUser"));
 	                users.add(user);
 	            }
 	        } catch (SQLException e) {
@@ -80,6 +80,28 @@ public  class UserDAOImpl implements UserDAO {
 	            pstmt.setInt(4, user.getMobile());
 	            pstmt.setString(5, user.getAddress());
 	            pstmt.setInt(6, user.getId());
+	            pstmt.executeUpdate();
+
+	            System.out.println("User updated successfully.");
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    
+	    @Override
+	    public void updateAdmin(User user) {
+	        String query = "UPDATE UserApp SET UserName = ?, email = ?, password = ?, mobileno = ? , address= ? , roleUser = ? WHERE id = ?";
+	        try (Connection conn = getConnection();
+	             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+	            pstmt.setString(1, user.getUserName());
+	            pstmt.setString(2, user.getEmail());
+	            pstmt.setString(3, user.getPassword());
+	            pstmt.setInt(4, user.getMobile());
+	            pstmt.setString(5, user.getAddress());
+	            pstmt.setString(6, user.getRoleUser());
+	            pstmt.setInt(7, user.getId());
+	            
 	            pstmt.executeUpdate();
 
 	            System.out.println("User updated successfully.");

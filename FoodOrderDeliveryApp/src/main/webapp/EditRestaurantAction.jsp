@@ -307,6 +307,7 @@
                 <li><a href="#">Offers</a></li>
                 <li><a href="#">Order Now</a></li>
                 <li><a href="#">Contact Us</a></li>
+                <li><a href="ViewOrderHistoryServlet">Order History</a></li>
             </ul>
         </nav>
 

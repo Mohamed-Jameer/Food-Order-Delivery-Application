@@ -7,8 +7,41 @@ public class User {
 	    private String password;
 	    private int mobile;
 	    private String address;
+	    private String roleUser;
+	    
+	    
 
-	    public String getAddress() {
+	    public User(String userName, String email, String password, int mobile, String address, String roleUser) {
+			super();
+			this.userName = userName;
+			this.email = email;
+			this.password = password;
+			this.mobile = mobile;
+			this.address = address;
+			this.roleUser = roleUser;
+		}
+
+		public User(int id, String userName, String email, String password, int mobile, String address,
+				String roleUser) {
+			super();
+			this.id = id;
+			this.userName = userName;
+			this.email = email;
+			this.password = password;
+			this.mobile = mobile;
+			this.address = address;
+			this.roleUser = roleUser;
+		}
+
+		public String getRoleUser() {
+			return roleUser;
+		}
+
+		public void setRoleUser(String roleUser) {
+			this.roleUser = roleUser;
+		}
+
+		public String getAddress() {
 			return address;
 		}
 

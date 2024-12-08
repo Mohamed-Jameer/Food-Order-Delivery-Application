@@ -8,34 +8,73 @@ public class Restaurant {
     private int rating;
     private int deliveryTime;
     private boolean isActive;
+    private String imageUrl;
+    
 
-    // Constructors
+    public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	// Constructors
     public Restaurant() {
         super();
     }
 
-    public Restaurant(int restaurantId, String restaurantName, String cuisineType, String address, int rating, int deliveryTime, boolean isActive) {
-        super();
-        this.restaurantId = restaurantId;
-        this.restaurantName = restaurantName;
-        this.cuisineType = cuisineType;
-        this.address = address;
-        this.rating = rating;
-        this.deliveryTime = deliveryTime;
-        this.isActive = isActive;
-    }
+    
 
-    public Restaurant(String restaurantName, String cuisineType, String address, int rating, int deliveryTime, boolean isActive) {
-        super();
-        this.restaurantName = restaurantName;
-        this.cuisineType = cuisineType;
-        this.address = address;
-        this.rating = rating;
-        this.deliveryTime = deliveryTime;
-        this.isActive = isActive;
-    }
+    public Restaurant(String restaurantName, String cuisineType, String address, int rating, int deliveryTime,
+			boolean isActive) {
+		super();
+		this.restaurantName = restaurantName;
+		this.cuisineType = cuisineType;
+		this.address = address;
+		this.rating = rating;
+		this.deliveryTime = deliveryTime;
+		this.isActive = isActive;
+	}
 
-    // Getters and Setters
+	public Restaurant(int restaurantId, String restaurantName, String cuisineType, String address, int rating,
+			int deliveryTime, boolean isActive) {
+		super();
+		this.restaurantId = restaurantId;
+		this.restaurantName = restaurantName;
+		this.cuisineType = cuisineType;
+		this.address = address;
+		this.rating = rating;
+		this.deliveryTime = deliveryTime;
+		this.isActive = isActive;
+	}
+
+	public Restaurant(String restaurantName, String cuisineType, String address, int rating, int deliveryTime,
+			boolean isActive, String imageUrl) {
+		super();
+		this.restaurantName = restaurantName;
+		this.cuisineType = cuisineType;
+		this.address = address;
+		this.rating = rating;
+		this.deliveryTime = deliveryTime;
+		this.isActive = isActive;
+		this.imageUrl = imageUrl;
+	}
+
+	public Restaurant(int restaurantId, String restaurantName, String cuisineType, String address, int rating,
+			int deliveryTime, boolean isActive, String imageUrl) {
+		super();
+		this.restaurantId = restaurantId;
+		this.restaurantName = restaurantName;
+		this.cuisineType = cuisineType;
+		this.address = address;
+		this.rating = rating;
+		this.deliveryTime = deliveryTime;
+		this.isActive = isActive;
+		this.imageUrl = imageUrl;
+	}
+
+	// Getters and Setters
     public int getRestaurantId() {
         return restaurantId;
     }

@@ -54,8 +54,7 @@ public class OrderHistory {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public OrderHistory(int orderHistoryId, int userId, int orderId, float totalAmount, Timestamp date, String status,
-			String address) {
+	public OrderHistory(int orderHistoryId, int userId, int orderId, float totalAmount, Timestamp date, String status,String address) {
 		super();
 		this.orderHistoryId = orderHistoryId;
 		this.userId = userId;
@@ -78,12 +77,16 @@ public class OrderHistory {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	@Override
 	public String toString() {
 		return "OrderHistory [orderHistoryId=" + orderHistoryId + ", userId=" + userId + ", orderId=" + orderId
 				+ ", totalAmount=" + totalAmount + ", date=" + date + ", status=" + status + ", address=" + address
 				+ "]";
 	}
+
+	
+	
 	
 	
 
