@@ -34,7 +34,6 @@ public class ViewMenu extends HttpServlet {
 		for(Menu menu : menuList) {
 			System.out.println(menu.toString());
 		}
-		
 		req.getSession().setAttribute("restaurantId", id);
 		req.getSession().setAttribute("Menu", menuList);
 		resp.sendRedirect("ViewMenu.jsp");

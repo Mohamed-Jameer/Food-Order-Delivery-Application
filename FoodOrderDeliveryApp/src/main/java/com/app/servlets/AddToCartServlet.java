@@ -37,8 +37,6 @@ public class AddToCartServlet extends HttpServlet {
         int menuId = Integer.parseInt(request.getParameter("menuId")); // Parsing menuId as integer
         
         String menuName = request.getParameter("menuName"); // You can also pass other details
-        int x =(int) request.getSession().getAttribute("restaurantId");
-
         
         
         // Create a CartItem object (assuming it stores a float price)

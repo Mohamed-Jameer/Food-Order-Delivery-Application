@@ -3,6 +3,8 @@
 <%@ page import="com.app.RestaurantDao.Restaurant" %>
 <%@ page import="com.app.UserDao.User" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.app.RestaurantDao.Restaurant" %>
+<%@ page import="com.app.RestaurantDao.RestaurantDAOImpl" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -452,7 +454,7 @@
     </header>
         <!-- Navigation -->
         <nav>
-            <ul>
+           <ul>
                 <li><a href="ShowRestaurant">Home</a></li>
                 <li><a href="ViewAllMenu">Menu</a></li>
                 <li><a href="Offer.jsp">Offers</a></li>
@@ -471,7 +473,8 @@
         <div class="row">
             <% 
                 // Assuming 'restaurantList' is passed from the session
-                List<Restaurant> restaurantList = (List<Restaurant>) session.getAttribute("Restaurant");
+                RestaurantDAOImpl r = new RestaurantDAOImpl();
+                List<Restaurant> restaurantList = r.fetchAll();
                 if (restaurantList != null) {
                     for (Restaurant restaurant : restaurantList) {
             %>
@@ -598,8 +601,6 @@
           mapContainer.style.display = "none";
         }
       });
-      
-   
     </script>
     
     <script>
@@ -657,6 +658,10 @@
             });
         });
     });
+    
+    function navigateToBackPage() {
+        window.history.back();
+    }
 </script>
 
     <!-- Bootstrap JS -->

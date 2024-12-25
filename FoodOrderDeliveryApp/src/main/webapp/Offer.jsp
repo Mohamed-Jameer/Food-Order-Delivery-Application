@@ -8,13 +8,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Order Application - Home</title>
-    <!-- Bootstrap CSS -->
+    <title>Special Offers</title>
+    <!-- Linking Bootstrap and FontAwesome for styling and icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        html, body {
+    
+       html, body {
             height: 100%;
             margin: 0;
             padding: 0;
@@ -39,26 +39,44 @@
             padding: 10px 15px;
             text-align: center;
             font-size: 24px;
-        }
+            }
+     .profile-box {
+    display: none;
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    background-color: white;
+    border: 2px solid #ffc107;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    z-index: 9999;
+    transition: opacity 0.3s ease; /* Smooth fade in and out */
+}
 
-        /* Profile Button */
-        .profile-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            background-color: #ffc107;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            padding: 15px;
-            width: 60px;
-            height: 60px;
-            font-size: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
+.profile-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background-color: #ffc107;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.profile-btn:hover {
+    background-color: #e0a800;
+    transform: scale(1.1);
+}
 
         .profile-btn:hover {
             background-color: #e0a800;
@@ -227,23 +245,7 @@
         .btn-view:hover {
             background-color: #e0a800; /* Darker yellow on hover */
         }
-        /* Styling for the message box */
-        .message-box {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-            background-color: #4CAF50;
-            color: white;
-            font-size: 18px;
-            text-align: center;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            z-index: 9999;  /* Ensure the box is on top */
-            animation: fadeIn 1s ease-in-out; /* Fade-in animation */
-        }
+     
 
         /* Animation for fade-in effect */
         @keyframes fadeIn {
@@ -257,166 +259,70 @@
             }
         }
         
-        
-
-      .floating-cart-button {
-        position: fixed;
-        bottom: 150px;
-        right: 30px;
-        z-index: 1000;
-        background-color: transparent;
-    }
-    
-    /* Button Style */
-    .floating-cart-button a {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 15px 20px;
-        background-color: #ffc107; /* Update with your website's primary color */
-        border-radius: 50%;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        text-decoration: none;
-        color: white;
-        font-size: 16px;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    /* Hover Effect */
-    .floating-cart-button a:hover {
-        background-color: #e0a800; /* Darker shade for hover */
-        transform: scale(1.05);
-    }
-
-    /* Text beside the cart icon */
-    .floating-cart-button .cart-text {
-        margin-left: 10px;
-    }
-
-    /* Cart item count */
-    .floating-cart-button .cart-count {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        background-color: #e74c3c; /* Red color for the count badge */
-        color: white;
-        padding: 5px 10px;
-        border-radius: 50%;
-        font-size: 12px;
-    }
-.card-img-top {
-    height: 200px; /* Adjust height as needed */
-    object-fit: cover; /* Ensures the image fills the space without distortion */
-    border-top-left-radius: calc(0.25rem - 1px); /* Matches Bootstrap's card border radius */
-    border-top-right-radius: calc(0.25rem - 1px);
-    padding: 5px; /* Add padding inside the image container */
-    border: 3px solid transparent; /* Default transparent border */
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card-img-top:hover {
-    transform: scale(1.05); /* Slight zoom effect on hover */
-    border-color: #ffc107; /* Highlight border on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
-    border-radius: 10px; /* Extra rounding on hover for a modern look */
-}
-.card-img-top::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 3px dashed #ffc107; /* Decorative dashed border */
-    border-radius: 10px;
-    opacity: 0; /* Hidden by default */
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-}
-
-.card-img-top:hover::after {
-    opacity: 1; /* Show on hover */
-}
+   
   a {
       text-decoration: none;
     }
     
-    
-     
-      #map-container {
-        display: none; /* Initially hide the map container */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-        z-index: 1000;
-      }
+   
+        /* General body styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+        }
 
-      #map {
-        height: 80%;
-        width: 80%;
-        margin: auto;
-        position: absolute;
-        top: 10%;
-        left: 10%;
-        background: white;
-        border-radius: 8px;
-        overflow: hidden;
-      }
 
-      #closeButton {
-        position: absolute;
-        top: 10%;
-        right: 10%;
-        background-color: red;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        font-size: 16px;
-        border-radius: 5px;
-        cursor: pointer;
-        z-index: 1100;
-      }
+        /* Card styles for offers */
+        .offer-card {
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border: none;
+            border-radius: 8px;
+            transition: transform 0.3s ease-in-out;
+        }
 
-      #closeButton:hover {
-        background-color: darkred;
-      }
+        /* Adding hover effect to offer cards */
+        .offer-card:hover {
+            transform: scale(1.05);
+        }
 
-      #showLocationBtn {
-        background-color: #ffc107; /* Green */
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-        width: 100px;
-        heigth:100px;
-          border: 2px solid ;
-  border-radius: 12px;
-  padding: 5px;
-  
-    position: absolute;
-    top: 140px; /* Adjust the top distance as needed */
-    right: 20px;
-      }
+        /* Ensuring images align with card design */
+        .offer-card img {
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
 
-      #showLocationBtn:hover {
-        background-color: #45a049;
-      }
+        /* Styling for offer titles */
+        .offer-title {
+            color: #ff5722;
+            font-weight: bold;
+        }
+
+        /* Styling claim button */
+        .btn-claim {
+            background: #ff5722;
+            color: #fff;
+        }
+
+        /* Adding hover effect for claim button */
+        .btn-claim:hover {
+            background: #e64a19;
+        }
+
+       
+
       
- 
+
+        /* Carousel image styling */
+        .carousel-item img {
+           width:100%;
+           height:450px;
+            object-fit: cover;
+        }
     </style>
 </head>
-
 <body>
 
- 
+
 
       <!-- Back Button -->
         <button class="back-btn" onclick="navigateToBackPage()">
@@ -452,7 +358,7 @@
     </header>
         <!-- Navigation -->
         <nav>
-            <ul>
+             <ul>
                 <li><a href="ShowRestaurant">Home</a></li>
                 <li><a href="ViewAllMenu">Menu</a></li>
                 <li><a href="Offer.jsp">Offers</a></li>
@@ -463,56 +369,92 @@
         </nav>
   
    <br>
-    
-   <center><h1>Restaurant Listings</h1></center>     <button id="showLocationBtn">Location</button>   
-   
-    
-    <div class="container">
-        <div class="row">
-            <% 
-                // Assuming 'restaurantList' is passed from the session
-                List<Restaurant> restaurantList = (List<Restaurant>) session.getAttribute("Restaurant");
-                if (restaurantList != null) {
-                    for (Restaurant restaurant : restaurantList) {
-            %>
-            <!-- Restaurant Card -->
-            
-<div class="col-md-4">
-    <div class="card" style="<%= !restaurant.isActive() ? "opacity: 0.6; pointer-events: none;" : "" %>">
-    <img src="<%= restaurant.getImageUrl() %>" 
-     class="card-img-top img-fluid rounded shadow" 
-     alt="<%= restaurant.getRestaurantName() %>">
-
-        <div class="card-body">
-            <h5 class="card-title"><%= restaurant.getRestaurantName() %></h5>
-            <p class="card-text">Cuisine Type: <%= restaurant.getCuisineType() %></p>
-            <p class="card-text">Rating: <%= restaurant.getRating() %> /5</p>
-            <p class="card-text">Delivery Time: <%= restaurant.getDeliveryTime() %> min</p>
-            <% if (restaurant.isActive()) { %>
-                <a href="ViewMenu?id=<%= restaurant.getRestaurantId() %>"   class="btn-view">View Details</a>
-            <% } else { %>
-                <p class="text-danger">This restaurant is currently Closed.</p>
-            <% } %>
+<!-- Bootstrap carousel for featured offers -->
+<div id="offerCarousel" class="carousel slide my-5" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <!-- Indicators for navigating slides -->
+        <button type="button" data-bs-target="#offerCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#offerCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#offerCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <!-- First slide -->
+        <div class="carousel-item active">
+            <img src="https://th.bing.com/th/id/OIP.FGWoQmQqqkFiuke38FNDEAHaEK?w=280&h=180&c=7&r=0&o=5&dpr=1.1&pid=1.7" class="d-block w-100" alt="Offer 1" style="object-fit: cover; width:100%; height:450px;">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Buy 1 Get 1 Free</h5>
+                <p>Enjoy this limited-time offer on all pizzas!</p>
+            </div>
+        </div>
+        <!-- Second slide -->
+        <div class="carousel-item">
+            <img src="https://th.bing.com/th?id=OIP.FBeDYCEZqe8-pkmXL4UncwHaE8&w=306&h=204&c=8&rs=1&qlt=90&o=6&dpr=1.1&pid=3.1&rm=2" class="d-block w-100" alt="Offer 2" style="object-fit: cover; width:100%; height:450px;">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>20% Off on First Order</h5>
+                <p>Register now and get an instant discount.</p>
+            </div>
+        </div>
+        <!-- Third slide -->
+        <div class="carousel-item">
+            <img src="https://th.bing.com/th/id/OIP.KdQ0Jz0tDTKbs1zqTmRnzAHaD4?w=336&h=180&c=7&r=0&o=5&dpr=1.1&pid=1.7" class="d-block w-100" alt="Offer 3" style="object-fit: cover; width:100%; height:450px;">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Free Desserts</h5>
+                <p>Get a free dessert with every meal combo!</p>
+            </div>
         </div>
     </div>
 </div>
 
-            <% 
-                    }
-                } else {
-            %>
-            <div style="text-align: center;">No restaurants found</div>
-            <% } %>
+    <!-- Carousel navigation controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#offerCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#offerCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<div class="container my-5">
+    <div class="row">
+        <!-- First offer card -->
+        <div class="col-md-4 mb-4">
+            <div class="card offer-card">
+                <img src="https://via.placeholder.com/400x200?text=Special+Deal+1" class="card-img-top" alt="Special Deal 1">
+                <div class="card-body">
+                    <h5 class="card-title offer-title">Combo Offer</h5>
+                    <p class="card-text">Get a meal combo at just $9.99!</p>
+                    <!-- Button to claim offer -->
+                    <button class="btn btn-claim w-100">Claim Offer</button>
+                </div>
+            </div>
+        </div>
+        <!-- Second offer card -->
+        <div class="col-md-4 mb-4">
+            <div class="card offer-card">
+                <img src="https://via.placeholder.com/400x200?text=Special+Deal+2" class="card-img-top" alt="Special Deal 2">
+                <div class="card-body">
+                    <h5 class="card-title offer-title">Free Drinks</h5>
+                    <p class="card-text">Order a burger and get a free drink.</p>
+                    <!-- Button to claim offer -->
+                    <button class="btn btn-claim w-100">Claim Offer</button>
+                </div>
+            </div>
+        </div>
+        <!-- Third offer card -->
+        <div class="col-md-4 mb-4">
+            <div class="card offer-card">
+                <img src="https://via.placeholder.com/400x200?text=Special+Deal+3" class="card-img-top" alt="Special Deal 3">
+                <div class="card-body">
+                    <h5 class="card-title offer-title">Weekend Special</h5>
+                    <p class="card-text">Flat 15% off on all orders this weekend!</p>
+                    <!-- Button to claim offer -->
+                    <button class="btn btn-claim w-100">Claim Offer</button>
+                </div>
+            </div>
         </div>
     </div>
-    
-      <div class="floating-cart-button">
-    <a href="ViewCartHome.jsp" class="btn btn-warning">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="cart-text">View Cart</span>
-        <span class="cart-count">3</span> <!-- Cart item count -->
-    </a>
-    
 </div>
 
     <!-- Footer -->
@@ -598,17 +540,10 @@
           mapContainer.style.display = "none";
         }
       });
-      
-   
     </script>
     
     <script>
-   
-    // Toggle Profile Box visibility
-    function toggleProfileBox() {
-        var profileBox = document.getElementById("profile-box");
-        profileBox.style.display = (profileBox.style.display === "none" || profileBox.style.display === "") ? "block" : "none";
-    }
+ 
 
     // Close the profile box if clicking outside of it
     window.onclick = function(event) {
@@ -629,19 +564,24 @@
     function navigateToEditPage(){
    	 window.location.href = 'UserEdit.jsp';
    }
-  
-    function navigateToBackPage(){
-      	 window.location.href = 'welcome.html';
-      }
-    function navigateToPage() {
-       
-        // Show the message box with a fade-in effect
-        document.getElementById("logoutMessage").style.display = "block";
+    
+    function toggleProfileBox() {
+        var profileBox = document.getElementById("profile-box");
+        // Toggle the display property between none and block
+        if (profileBox.style.display === "none" || profileBox.style.display === "") {
+            profileBox.style.display = "block";
+        } else {
+            profileBox.style.display = "none";
+        }
+    }
 
-        // Redirect to another page after a short delay
-        setTimeout(function() {
-            window.location.href = 'welcome.html';  // Replace with your target page
-        }, 2000);  // 2 seconds delay before redirection
+    function navigateToBackPage() {
+        window.history.back(); // Go back to the previous page
+    }
+
+    function navigateToPage() {
+        // Handle the logout or other page redirection logic here
+        window.location.href = "logout.jsp";
     }
     
     document.addEventListener('DOMContentLoaded', () => {
@@ -661,5 +601,21 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Bootstrap JS for carousel functionality -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Adding click event listener to all claim buttons
+    document.querySelectorAll('.btn-claim').forEach(button => {
+        button.addEventListener('click', () => {
+            alert('Offer claimed successfully!'); // Displaying alert on claiming an offer
+        });
+    });
+    
+    function navigateToBackPage() {
+        window.history.back();
+    }
+</script>
+
 </body>
 </html>
