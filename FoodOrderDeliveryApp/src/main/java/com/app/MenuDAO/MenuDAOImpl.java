@@ -15,6 +15,7 @@ public class MenuDAOImpl implements MenuDAO {
     private final String FETCH_SPECIFIC_ID_QUERY = "SELECT * FROM menu WHERE menuId = ?";
     private final String DELETE_BY_ID_QUERY = "DELETE FROM menu WHERE menuId = ?";
     private final String UPDATE_AVAILABILITY_QUERY = "UPDATE menu SET isAvailable = ? WHERE menuId = ?";
+    private final String UPDATE_MENU_QUERY = "UPDATE menu SET restaurantId = ? , menuName = ?, description = ?, price = ?, rating = ?, isAvailable= ?,imageUrl= ? WHERE menuId = ?";
     private final String FETCH_SPECIFIC_RESTAURANT_ID_QUERY = "SELECT * FROM menu WHERE restaurantId = ?";
 
     
@@ -150,4 +151,28 @@ public class MenuDAOImpl implements MenuDAO {
         }
         return status;
     }
+    
+   
+    public int updateMenu(Menu m) {
+    	System.out.println("2");
+    	System.out.println(m.getMenuId());
+        try {
+            pstmt = con.prepareStatement(UPDATE_MENU_QUERY);
+            pstmt.setInt(1, m.getRestaurantId());
+            pstmt.setString(2, m.getMenuName());
+            pstmt.setString(3, m.getDescription());
+            pstmt.setFloat(4, m.getPrice());
+            pstmt.setInt(5, m.getRating());
+            pstmt.setBoolean(6, m.isAvailable());
+            pstmt.setString(7, m.getImageUrl());
+            pstmt.setInt(8, m.getMenuId());
+            status = pstmt.executeUpdate();
+        	System.out.println(status);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return status;
+    }
+
+
 }

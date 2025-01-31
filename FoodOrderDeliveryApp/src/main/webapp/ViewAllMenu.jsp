@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.app.MenuDAO.Menu" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.app.MenuDAO.MenuDAO" %>
+<%@ page import="com.app.MenuDAO.MenuDAOImpl" %>
 <%@ page import="com.app.UserDao.User" %>
 <%@ page import="com.app.RestaurantDao.Restaurant" %>
 <%@ page import="com.app.RestaurantDao.RestaurantDAOImpl" %>
@@ -450,9 +450,9 @@
 <body>
 
       <!-- Back Button -->
-      <a href="ShowRestaurant">  <button class="back-btn" >
+        <button class="back-btn" onclick="history.back()" >
             <i class="fas fa-arrow-left"></i>
-        </button> </a>
+        </button>
            
         <!-- Profile Button -->
         <button class="profile-btn" onclick="toggleProfileBox()">
@@ -499,7 +499,7 @@
         <div class="row">
             <% 
             
-            List<Menu> menuList = (List<Menu>) session.getAttribute("menuAll");
+            List<Menu> menuList = new MenuDAOImpl().fetchAll();
                 if (menuList != null && !menuList.isEmpty()) {
                     for (Menu menu : menuList) {
                     	
