@@ -2,7 +2,15 @@
 pageEncoding="UTF-8"%>
 <%@ page import="com.app.RestaurantDao.Restaurant" %>
 <%@ page import="com.app.UserDao.User" %>
+<%@ page import="com.app.RestaurantDao.RestaurantDAOImpl" %>
+<%@ page import="com.app.RestaurantDao.Restaurant" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.app.MenuDAO.MenuDAOImpl" %>
+<%@ page import="com.app.MenuDAO.Menu" %>
+<%@ page import="com.app.orderHistory.OrderHistoryDAOImpl" %>
+<%@ page import="com.app.orderHistory.OrderHistory" %>
+<%@ page import=" com.app.UserDao.UserDAOImpl" %>
+<%@ page import=" com.app.UserDao.User" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -497,7 +505,22 @@ pageEncoding="UTF-8"%>
     <header id = "adminHeader">
       <h1>Admin Dashboard</h1>
     </header>
-
+    
+    
+    <% 
+    RestaurantDAOImpl restaurantDAOImpl = new RestaurantDAOImpl();
+     List<Restaurant> resturantTotal =  restaurantDAOImpl.fetchAll();
+     
+     MenuDAOImpl menuDAOImpl = new MenuDAOImpl();
+     List<Menu> menuTotal  = menuDAOImpl.fetchAll();
+     
+     OrderHistoryDAOImpl orderHistoryDAOImpl = new OrderHistoryDAOImpl();
+     List<OrderHistory> orderTotal = orderHistoryDAOImpl.fetchAll();
+     
+     
+     UserDAOImpl userDAOImpl1 = new UserDAOImpl();
+     List<User> userTotal = userDAOImpl1.getAllUsers();
+    %>
  
 
     <!-- Admin Content -->
@@ -508,7 +531,7 @@ pageEncoding="UTF-8"%>
           <div class="card text-center bg-primary text-white mb-4">
             <div class="card-body">
               <h3>Total Restaurants</h3>
-              <h2>25</h2>
+              <h2><%= resturantTotal.size() %></h2>
             </div>
           </div>
         </div>
@@ -516,7 +539,7 @@ pageEncoding="UTF-8"%>
           <div class="card text-center bg-success text-white mb-4">
             <div class="card-body">
               <h3>Total Menus</h3>
-              <h2>120</h2>
+              <h2><%= menuTotal.size() %></h2>
             </div>
           </div>
         </div>
@@ -524,7 +547,7 @@ pageEncoding="UTF-8"%>
           <div class="card text-center bg-warning text-white mb-4">
             <div class="card-body">
               <h3>Total Orders</h3>
-              <h2>150</h2>
+              <h2><%= orderTotal.size() %></h2>
             </div>
           </div>
         </div>
@@ -532,7 +555,7 @@ pageEncoding="UTF-8"%>
           <div class="card text-center bg-danger text-white mb-4">
             <div class="card-body">
               <h3>Total Users</h3>
-              <h2>350</h2>
+              <h2><%= userTotal.size() %></h2>
             </div>
           </div>
         </div>
@@ -585,13 +608,13 @@ pageEncoding="UTF-8"%>
           <div class="card mb-4">
             <div class="card-header bg-dark text-white">Manage Orders</div>
             <div class="card-body">
-              <a href="viewOrders.jsp" class="btn btn-primary mb-2"
+              <a href="ViewAllOrders.jsp" class="btn btn-primary mb-2"
                 >View Orders</a
               >
-              <a href="updateOrderStatus.jsp" class="btn btn-warning mb-2"
+              <a href="UpdateOrderStatus.jsp" class="btn btn-warning mb-2"
                 >Update Order Status</a
               >
-              <a href="deleteOrder.jsp" class="btn btn-danger mb-2"
+              <a href="DeleteOrder.jsp" class="btn btn-danger mb-2"
                 >Delete Order</a
               >
             </div>
@@ -603,13 +626,9 @@ pageEncoding="UTF-8"%>
           <div class="card mb-4">
             <div class="card-header bg-dark text-white">Manage Users</div>
             <div class="card-body">
-              <a href="addUser.jsp" class="btn btn-success mb-2">Add User</a>
-              <a href="viewUsers.jsp" class="btn btn-primary mb-2"
-                >View Users</a
-              >
-              <a href="editUser.jsp" class="btn btn-warning mb-2">Edit User</a>
-              <a href="deleteUser.jsp" class="btn btn-danger mb-2"
-                >Delete User</a
+              <a href="ViewUsers.jsp" class="btn btn-primary mb-2">View Users</a>
+              <a href="EditUser.jsp" class="btn btn-warning mb-2">Edit User</a>
+              <a href="DeleteUser.jsp" class="btn btn-danger mb-2">Delete User</a
               >
             </div>
           </div>

@@ -9,10 +9,11 @@ public class OrderDAOImpl implements OrderDAO {
 
     private final String FETCH_ORDER_BY_ID_QUERY = "SELECT * FROM order_history WHERE orderId = ?";
     private final String INSERT_ORDER_HISTORY_QUERY = "INSERT INTO order_history(userId, restaurantId, menuId, quantity, totalAmount, payment, dateTime, status,address,OrderSame) VALUES(?, ?, ?, ?, ?, ?, ?, ?,?,?)";
-    private final String UPDATE_ORDER_HISTORY_QUERY = "UPDATE order_history SET status = ? WHERE orderId = ?";
+    private final String UPDATE_ORDER_HISTORY_QUERY = "UPDATE order_history SET status = ? WHERE OrderSame = ?";
     private final String FETCH_ORDERS_BY_USER_ID = "SELECT * FROM order_history WHERE userId = ?";
     private final String MAX_USER_ID ="SELECT orderId FROM order_history ORDER BY orderId DESC LIMIT 1";
     private final String GET_USERS ="SELECT * FROM order_history WHERE OrderSame = ?";
+
     
     private String url = "jdbc:mysql://localhost:3306/db";
     private String user = "root";
@@ -45,12 +46,9 @@ public class OrderDAOImpl implements OrderDAO {
             
             if (orderList.size()>0) {
                 order = orderList.get(0);
-                System.out.println("Order Found for ID: " + id);
+               
             }
-            else {
-            	   System.out.println("No Order Found for ID: " + id);
-                   System.exit(0);
-            }
+           
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,12 +70,7 @@ public class OrderDAOImpl implements OrderDAO {
             pstmt.setString(9, o.getAddress());
             pstmt.setInt(10, o.getOrderSame());
             status = pstmt.executeUpdate();
-            
-            if (status != 0) {
-                System.out.println("Order history inserted successfully.");
-            } else {
-                System.out.println("Insert failed.");
-            }
+           
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -92,11 +85,7 @@ public class OrderDAOImpl implements OrderDAO {
 
             this.status = pstmt.executeUpdate();
             
-            if (this.status != 0) {
-                System.out.println("Order status updated successfully.");
-            } else {
-                System.out.println("Update failed.");
-            }
+           
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,9 +101,6 @@ public class OrderDAOImpl implements OrderDAO {
             orderList = extractStudentFromResultSet(resultSet);
             if (orderList.size()>0) {
                 order = orderList.get(0);
-            }else {
-            	System.out.println("No User Found for ID: " + userId);
-                System.exit(0);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,17 +117,9 @@ public class OrderDAOImpl implements OrderDAO {
             resultSet = pstmt.executeQuery();
             orderList = extractStudentFromResultSet(resultSet);
             
-            for(Order order : orderList) {
-            	System.out.println("JDBC "+order);
-            }
             
-//            if (orderList.size()>0) {
-//                
-//            }
-//            else {
-//            	   System.out.println("No Order Found for ID: getOrders" + id);
-//                   System.exit(0);
-//            }
+            
+
         } catch (Exception e) {
             e.printStackTrace();
         }

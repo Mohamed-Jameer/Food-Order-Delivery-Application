@@ -289,6 +289,8 @@
         <div id="logoutMessage" class="message-box">
     <p>You have successfully logged out. We hope to see you again soon!</p>
 </div>
+ 
+
      <header>
       <h1>Welcome to QuickBite Food Order</h1>
     </header>
@@ -308,7 +310,7 @@
     <!-- Order Summary Section -->
     <div class="container mt-5">
         <!-- Updated Order Summary Section with Form -->
-<form action="OrderItemPlaced" method="POST" >    <h1 class="text-center">Order Summary</h1>
+<form   action="OrderItemPlaced"  method="POST" >    <h1 class="text-center">Order Summary</h1>
 
     <table class="table table-striped table-hover">
         <thead class="table-dark">
@@ -364,7 +366,7 @@
         <textarea name="DeliveryAddress" class="form-control" rows="3" placeholder="Enter your delivery address" required><%= user.getAddress() %></textarea>
     </div>
 
-    <button type="submit" class="btn btn-success mt-4">Confirm Order</button>
+    <button type="submit" onclick="ConfirmMessage(event)" class="btn btn-success mt-4">Confirm Order</button>
 </form>
 
     </div>
@@ -375,7 +377,7 @@
     </footer>
 
     <!-- Modal for Address Update -->
-    <div id="message-box" class="message-box">
+    <div id="ConfirmMessage" class="message-box">
         <p>Your order has been confirmed!</p>
     </div>
 
@@ -415,6 +417,20 @@
             }
         };
         
+        function ConfirmMessage(event) {
+            // Prevent the form from submitting immediately
+            event.preventDefault();
+
+            // Show the message box with a fade-in effect
+            document.getElementById("ConfirmMessage").style.display = "block";
+
+            // Wait for a few seconds before submitting the form
+            setTimeout(function() {
+                document.forms[0].submit();  // Submit the form
+            }, 2000);  // 2 seconds delay before form submission
+        }
+
+
 
     </script>
 </body>

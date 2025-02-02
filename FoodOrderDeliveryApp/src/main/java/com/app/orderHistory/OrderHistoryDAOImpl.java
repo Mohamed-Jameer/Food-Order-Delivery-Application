@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +16,19 @@ public class OrderHistoryDAOImpl implements OrderHistoryDAO {
     private final String INSERT_ORDER_HISTORY_QUERY = "INSERT INTO Order_ShowHis(userid,orderid,total,dateTime,status,address) VALUES(?, ?, ?, ?, ?, ?)";
     private final String FETCH_ORDERHISTORY_BY_USER_ID = "SELECT * FROM Order_ShowHis WHERE userid = ?";
     private final String FETCH_ORDERHISTORY_BY_ORDER_ID = "SELECT * FROM Order_ShowHis WHERE orderid = ?";
+    private final String FETCH_ALL_ORDERHISTORY = "SELECT * FROM Order_ShowHis";
+    private final String DELETE_ORDERHISTORY_BY_ORDERHIS_ID = "DELETE FROM Order_ShowHis WHERE  oHif= ?";
+    private final String UPDATE_STATUS_ORDERHISTORY_BY_ORDERHIS_ID = "UPDATE Order_ShowHis SET status = ?  WHERE  oHif= ?";
+    private final String FETCH_ORDERHISTORY_BY_ORDERHIS_ID = "SELECT * FROM Order_ShowHis WHERE oHif = ?";
+    
+    
 
 	    private String url = "jdbc:mysql://localhost:3306/db";
 	    private String user = "root";
 	    private String password = "root";
 	    private Connection con;
 	    private PreparedStatement pstmt;
+	    
 	    private ResultSet resultSet;
 	    private int status;
 	    
@@ -27,6 +36,8 @@ public class OrderHistoryDAOImpl implements OrderHistoryDAO {
 
 		private OrderHistory orderHistory;
 		private OrderHistory oh;
+		private Statement stmt;
+		
 	    
 	    
 	public OrderHistoryDAOImpl(){
@@ -37,6 +48,11 @@ public class OrderHistoryDAOImpl implements OrderHistoryDAO {
 	            e.printStackTrace();
 	        } 
 	}
+	
+	
+	
+	
+	
 	
 	@Override
 	public void insert(OrderHistory o) {
@@ -51,11 +67,7 @@ public class OrderHistoryDAOImpl implements OrderHistoryDAO {
 
 	            status = pstmt.executeUpdate();
 	            
-	            if (status != 0) {
-	                System.out.println("Update history inserted successfully.");
-	            } else {
-	                System.out.println("Insert failed.");
-	            }
+	           
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
@@ -70,9 +82,7 @@ public class OrderHistoryDAOImpl implements OrderHistoryDAO {
             resultSet = pstmt.executeQuery();
             orderHistoryList = extractOrderHistoryFromResultSet(resultSet);
             
-            if (orderHistoryList.size()>0) {
-            	System.out.println("View History");
-            }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,6 +94,7 @@ public class OrderHistoryDAOImpl implements OrderHistoryDAO {
 		  try {
 			  while (resultSet.next()) {
 				  orderHistoryList.add(new OrderHistory(
+						  resultSet.getInt("oHif"),
 	                    resultSet.getInt("orderId"),
 	                    resultSet.getInt("userId"),
 	                    resultSet.getFloat("total"),
@@ -108,12 +119,7 @@ public class OrderHistoryDAOImpl implements OrderHistoryDAO {
             pstmt.setInt(1, orderSame);
             resultSet = pstmt.executeQuery();
             orderHistoryList = extractOrderHistoryFromResultSet(resultSet);
-            if (orderHistoryList.size()>0) {
-            	System.out.println("View History");
-            }
-            else {
-            	System.out.println("no View History");
-            }
+           
            oh = orderHistoryList.get(0);
             
  
@@ -122,6 +128,79 @@ public class OrderHistoryDAOImpl implements OrderHistoryDAO {
         }
         return  oh;
     }
+    
+    public OrderHistory fetchOrderHisOrderOnlyId(int hisOrderId) {
+        try {
+            pstmt = con.prepareStatement(FETCH_ORDERHISTORY_BY_ORDERHIS_ID);
+            pstmt.setInt(1, hisOrderId);
+            resultSet = pstmt.executeQuery();
+            orderHistoryList = extractOrderHistoryFromResultSet(resultSet);
+           
+           oh = orderHistoryList.get(0);
+            
+ 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  oh;
+    }
+
+
+
+
+	@Override
+	public List<OrderHistory> fetchAll() {
+		
+		List<OrderHistory> orderHistoryAll = new ArrayList<>();
+		
+		   try {
+	             stmt = con.createStatement();
+	            resultSet = stmt.executeQuery(FETCH_ALL_ORDERHISTORY);
+	            orderHistoryAll = extractOrderHistoryFromResultSet(resultSet);
+	            
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+
+		return orderHistoryAll;
+		
+	}
+
+
+
+	@Override
+	public void deleteHisOrder(int id) {
+		 try {
+	            pstmt = con.prepareStatement(DELETE_ORDERHISTORY_BY_ORDERHIS_ID);
+	            pstmt.setInt(1, id);
+	            pstmt.executeUpdate();
+	           
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+		
+	}
+
+
+
+
+
+
+	@Override
+	public void updateStatusHisOrder(String status, int id) {
+		try {
+            pstmt = con.prepareStatement(UPDATE_STATUS_ORDERHISTORY_BY_ORDERHIS_ID);
+            pstmt.setString(1, status);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+            
+            
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		
+	}
 
 
 	

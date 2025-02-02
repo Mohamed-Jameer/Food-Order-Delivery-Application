@@ -29,8 +29,7 @@ import com.app.orderItems.OrderItemsDAOImpl;
 public class OrderItemPlaced extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Get session and user info
-		System.out.println("Hello");
+        
 		
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
@@ -42,27 +41,31 @@ public class OrderItemPlaced extends HttpServlet {
         
         Timestamp Timestamp=  new Timestamp(System.currentTimeMillis());
         OrderDAOImpl orderDAOI = new OrderDAOImpl();
-        
+     
         // Calculate total amount of the order
         for (CartItem item : cart.values()) {
             totalAmount += item.getPrice() * item.getQuantity();
+            
         }
+        float total = 0;
         int OrderSame = new OrderDAOImpl().fetchLastOrderId();   
         
             for (CartItem item : cart.values()) {
             	Menu menu =  new MenuDAOImpl().fetchSpecificId(item.getMenuId());
-                Order orders = new Order(user.getId(),menu.getRestaurantId(),item.getMenuId(),item.getQuantity(),item.getPrice(),paymentMethod,Timestamp,status,deliveryAddress,OrderSame);
+                Order orders = new Order(user.getId(),menu.getRestaurantId(),item.getMenuId(),item.getQuantity(),item.getPrice() * item.getQuantity(),paymentMethod,Timestamp,status,deliveryAddress,OrderSame);
                 orderDAOI.insertOrderHistory(orders);
-
+                total+=totalAmount*item.getQuantity();
             }
+            
+            
             
             int OrderId = orderDAOI.fetchLastOrderId();
             for (CartItem item : cart.values()) {
-            OrderItems orderItems = new OrderItems(OrderSame,item.getMenuId(),item.getQuantity(),item.getPrice(),user.getId(),deliveryAddress);
+            OrderItems orderItems = new OrderItems(OrderSame,item.getMenuId(),item.getQuantity(),item.getPrice() * item.getQuantity(),user.getId(),deliveryAddress);
             new OrderItemsDAOImpl().insert(orderItems);
             }
             
-            OrderHistory oh = new OrderHistory(user.getId(),OrderSame,totalAmount,Timestamp,status,deliveryAddress);
+            OrderHistory oh = new OrderHistory(user.getId(),OrderSame,totalAmount,Timestamp ,status,deliveryAddress);
             new OrderHistoryDAOImpl().insert(oh);
            
            

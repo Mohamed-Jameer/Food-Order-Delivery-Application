@@ -9,6 +9,12 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.TreeMap" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.app.order.OrderDAOImpl" %>
+<%@ page import="com.app.order.Order" %>
+<%@ page import="com.app.orderHistory.OrderHistoryDAOImpl" %>
+<%@ page import="com.app.orderHistory.OrderHistory" %>
+<%@ page import="com.app.UserDao.UserDAOImpl" %>
+<%@ page import="com.app.UserDao.User" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -432,12 +438,19 @@ button[type="submit"] {
                             totalQuantity += order.getQuantity();
                             totalAmount += order.getTotalAmount();
                         }
+                        
+                   
+                        
+                        OrderHistoryDAOImpl findIdSameOrder = new OrderHistoryDAOImpl();
+                        int orderGroupId = findIdSameOrder.fetchOrderHisOrderId(firstOrder.getOrderSame()).getOrderHistoryId();
+                        
                 %>
 <div class="col-md-4">
     <div class="card shadow-sm">
         <div class="card-body">
-            <h5 class="order-group-title text-custom">Order Group: <%= restaurant.getRestaurantId() %></h5>
+           <h5 class="order-group-title text-custom">Order Group: <%= orderGroupId %></h5>
             <div class="order-details">
+           
                 <div><strong>Total Quantity:</strong> <%= totalQuantity %></div>
                 <div><strong>Total Amount:</strong> ₹<%= totalAmount %></div>
                 <div><strong>Status:</strong> <%= firstOrder.getStatus() %></div>

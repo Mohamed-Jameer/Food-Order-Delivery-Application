@@ -11,15 +11,6 @@ public class User {
 	    
 	    
 
-	    public User(String userName, String email, String password, int mobile, String address, String roleUser) {
-			super();
-			this.userName = userName;
-			this.email = email;
-			this.password = password;
-			this.mobile = mobile;
-			this.address = address;
-			this.roleUser = roleUser;
-		}
 
 		public User(int id, String userName, String email, String password, int mobile, String address,
 				String roleUser) {
@@ -63,8 +54,20 @@ public class User {
 	        this.mobile = mobile;
 	        this.address = address;
 	    }
+	    
+	    
 
-	    public User(String userName, String email, String password, int mobile,String address) {
+	    public User(String userName, String email, String password, int mobile, String address, String roleUser) {
+			super();
+			this.userName = userName;
+			this.email = email;
+			this.password = password;
+			this.mobile = mobile;
+			this.address = address;
+			this.roleUser = roleUser;
+		}
+
+		public User(String userName, String email, String password, int mobile,String address) {
 	        super();
 	        this.userName = userName;
 	        this.email = email;
@@ -122,8 +125,10 @@ public class User {
 		@Override
 		public String toString() {
 			return "User [id=" + id + ", userName=" + userName + ", email=" + email + ", password=" + password
-					+ ", mobile=" + mobile + ", address=" + address + "]";
+					+ ", mobile=" + mobile + ", address=" + address + ", roleUser=" + roleUser + "]";
 		}
+
+		
 
 	
 	}

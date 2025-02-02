@@ -32,18 +32,15 @@ public class ViewOrderHistoryServlet extends HttpServlet {
 	       List<Order> order =  new ArrayList<>();
 	       OrderDAOImpl oDAOImpl = new OrderDAOImpl();
 	      
-	        System.out.println(user.getId());
+	        
 	       OrderHistoryDAOImpl oHD = new OrderHistoryDAOImpl();
-	       System.out.println(user.getId());
-	       
-	       
+	    
 	         List<OrderHistory> orderHistoryList = oHD.fetchOrderHisId(user.getId());
 	         
 	         for(OrderHistory oh : orderHistoryList ) {
-	        	 System.out.println(oh);
-	        	 //order.addAll(oDAOImpl.getOrders(oh.getOrderId()));
+	        	
 	        	 order.addAll(oDAOImpl.getOrders(oh.getUserId()));
-	        	 System.out.println("View History Updates");
+	        
 	         }
 	         
 	         for(Order or : order) {
