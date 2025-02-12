@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuDAOImpl implements MenuDAO {
+public class MenuDAOImpl implements MenuDAO  {
 
     List<Menu> menuList = new ArrayList<>();
     

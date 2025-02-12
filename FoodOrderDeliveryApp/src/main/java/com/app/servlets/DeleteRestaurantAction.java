@@ -14,7 +14,7 @@ import com.app.RestaurantDao.RestaurantDAOImpl;
  * Servlet implementation class DeleteRestaurantAction
  */
 @WebServlet("/DeleteRestaurantAction")
-public class DeleteRestaurantAction extends HttpServlet {
+public class DeleteRestaurantAction extends HttpServlet  {
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

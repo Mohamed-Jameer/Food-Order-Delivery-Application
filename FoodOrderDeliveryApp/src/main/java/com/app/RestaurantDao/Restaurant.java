@@ -8,7 +8,7 @@ public class Restaurant {
     private int rating;
     private int deliveryTime;
     private boolean isActive;
-    private String imageUrl;
+    private String imageUrl ;
     
 
     public String getImageUrl() {

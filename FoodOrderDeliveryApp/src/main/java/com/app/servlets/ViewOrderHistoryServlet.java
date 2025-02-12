@@ -21,7 +21,7 @@ import com.app.orderHistory.OrderHistoryDAOImpl;
  * Servlet implementation class ViewOrderHistoryServlet
  */
 @WebServlet("/ViewOrderHistoryServlet")
-public class ViewOrderHistoryServlet extends HttpServlet {
+public class ViewOrderHistoryServlet extends HttpServlet  {
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

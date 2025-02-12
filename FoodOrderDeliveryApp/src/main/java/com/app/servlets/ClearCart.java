@@ -16,7 +16,7 @@ import com.app.CartItems.CartItem;
  * Servlet implementation class ClearCart
  */
 @WebServlet("/ClearCart")
-public class ClearCart extends HttpServlet {
+public class ClearCart extends HttpServlet  {
  
 	
 	@Override

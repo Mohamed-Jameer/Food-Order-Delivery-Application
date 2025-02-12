@@ -3,7 +3,7 @@ package com.app.order;
 
 import java.sql.Timestamp;
 
-public class Order {
+public class Order  {
     private int orderId;
     private int userId;
     private int restaurantId;

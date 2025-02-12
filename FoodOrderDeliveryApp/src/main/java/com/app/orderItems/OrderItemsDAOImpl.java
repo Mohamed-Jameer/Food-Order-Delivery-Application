@@ -12,7 +12,7 @@ public class OrderItemsDAOImpl implements OrderItemsDAO {
     private final String DELETE_BY_ORDERITEMID_QUERY = "DELETE FROM order_items WHERE orderItemId = ?";
     private final String UPDATE_QUANTITY_QUERY = "UPDATE order_items SET quantity = ? WHERE orderItemId = ?";
    
-    private String url = "jdbc:mysql://localhost:3306/db";
+    private String url = "jdbc:mysql://localhost:3306/db" ;
     private String user = "root";
     private String password = "root";
     private Connection con;

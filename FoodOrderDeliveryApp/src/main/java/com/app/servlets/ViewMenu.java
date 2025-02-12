@@ -16,7 +16,7 @@ import com.app.MenuDAO.MenuDAOImpl;
  * Servlet implementation class ViewMenu
  */
 @WebServlet("/ViewMenu")
-public class ViewMenu extends HttpServlet {
+public class ViewMenu extends HttpServlet  {
 
 	
 	@Override

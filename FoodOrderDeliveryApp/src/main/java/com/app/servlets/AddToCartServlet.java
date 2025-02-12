@@ -21,7 +21,7 @@ import com.app.MenuDAO.MenuDAOImpl;
  * Servlet implementation class AddToCartServlet
  */
 @WebServlet("/AddToCartServlet")
-public class AddToCartServlet extends HttpServlet {
+public class AddToCartServlet extends HttpServlet  {
 
 	private RequestDispatcher d;
 

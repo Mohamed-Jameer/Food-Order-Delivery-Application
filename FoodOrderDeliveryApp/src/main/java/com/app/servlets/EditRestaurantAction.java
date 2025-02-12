@@ -16,7 +16,7 @@ import com.app.RestaurantDao.RestaurantDAOImpl;
  * Servlet implementation class EditRestaurantAction
  */
 @WebServlet("/EditRestaurantAction")
-public class EditRestaurantAction extends HttpServlet {
+public class EditRestaurantAction extends HttpServlet  {
 	@Override
 		protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

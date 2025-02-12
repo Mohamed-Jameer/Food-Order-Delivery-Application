@@ -2,7 +2,7 @@ package com.app.orderHistory;
 
 import java.sql.Timestamp;
 
-public class OrderHistory {
+public class OrderHistory  {
 	private int orderHistoryId;
 	private int userId;
 	private int orderId;

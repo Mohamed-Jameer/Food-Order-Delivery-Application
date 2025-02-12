@@ -16,7 +16,7 @@ import com.app.RestaurantDao.RestaurantDAOImpl;
  * Servlet implementation class EditRestaurantServlet
  */
 @WebServlet("/EditRestaurantServlet")
-public class EditRestaurantServlet extends HttpServlet {
+public class EditRestaurantServlet extends HttpServlet  {
 
 	
 	@Override

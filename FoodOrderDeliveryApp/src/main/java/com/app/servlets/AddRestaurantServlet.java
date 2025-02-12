@@ -16,7 +16,7 @@ import com.app.RestaurantDao.RestaurantDAOImpl;
  * Servlet implementation class AddRestaurantServlet
  */
 @WebServlet("/AddRestaurantServlet")
-public class AddRestaurantServlet extends HttpServlet {
+public class AddRestaurantServlet extends HttpServlet  {
 
 	    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    	System.out.println("AddRestaurantServlet");

@@ -1,7 +1,7 @@
 package com.app.CartItems;
 
 
-public class CartItem {
+public class CartItem  {
     private int menuId;
     private String menuName;
     private float price;

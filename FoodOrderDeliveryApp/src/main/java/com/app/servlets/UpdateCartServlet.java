@@ -15,7 +15,7 @@ import com.app.CartItems.CartItem;
 
 
 @WebServlet("/UpdateCartServlet")
-public class UpdateCartServlet extends HttpServlet {
+public class UpdateCartServlet extends HttpServlet  {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int menuId = Integer.parseInt(request.getParameter("menuId"));
         String action = request.getParameter("action");

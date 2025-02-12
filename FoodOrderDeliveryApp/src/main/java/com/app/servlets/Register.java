@@ -17,7 +17,7 @@ import com.app.UserDao.UserDAOImpl;
 
 
 @WebServlet("/Register")
-public class Register extends HttpServlet {
+public class Register extends HttpServlet  {
 
 	
 

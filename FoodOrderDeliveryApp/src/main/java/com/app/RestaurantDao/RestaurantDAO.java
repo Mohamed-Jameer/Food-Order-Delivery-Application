@@ -4,7 +4,7 @@ package com.app.RestaurantDao;
 import java.util.List;
 
 
-public interface RestaurantDAO {
+public interface RestaurantDAO  {
     void insert(Restaurant r);
     List<Restaurant> fetchAll();
     Restaurant fetchSpecificId(int id);

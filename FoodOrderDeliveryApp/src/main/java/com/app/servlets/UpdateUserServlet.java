@@ -15,7 +15,7 @@ import com.app.UserDao.UserDAOImpl;
  * Servlet implementation class UpdateUserServlet
  */
 @WebServlet("/UpdateUserServlet")
-public class UpdateUserServlet extends HttpServlet {
+public class UpdateUserServlet extends HttpServlet  {
 	
 	
 	@Override

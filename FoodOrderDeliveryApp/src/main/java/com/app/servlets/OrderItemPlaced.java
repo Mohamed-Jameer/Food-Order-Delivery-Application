@@ -26,7 +26,7 @@ import com.app.orderItems.OrderItemsDAOImpl;
  * Servlet implementation class OrderItemPlaced
  */
 @WebServlet("/OrderItemPlaced")
-public class OrderItemPlaced extends HttpServlet {
+public class OrderItemPlaced extends HttpServlet  {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         

@@ -8,5 +8,5 @@ public interface OrderItemsDAO {
     List<OrderItems> fetchAll();
     List<OrderItems> fetchByOrderId(int orderId);
     int deleteByOrderItemId(int orderItemId);
-    int updateQuantity(int orderItemId, int quantity);
+    int updateQuantity(int orderItemId, int quantity) ;
 }

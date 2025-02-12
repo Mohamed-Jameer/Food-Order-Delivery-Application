@@ -8,7 +8,7 @@ public class OrderItems {
     private int quantity;
     private float itemTotalPrice;
     private int userId;
-    private String address;
+    private String address ;
 
   
     

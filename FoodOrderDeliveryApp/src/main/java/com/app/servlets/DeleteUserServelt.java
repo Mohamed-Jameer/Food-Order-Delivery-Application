@@ -16,7 +16,7 @@ import com.app.UserDao.UserDAOImpl;
  * Servlet implementation class DeleteUserServelt
  */
 @WebServlet("/DeleteUserServelt")
-public class DeleteUserServelt extends HttpServlet {
+public class DeleteUserServelt extends HttpServlet  {
 
 	
 	@Override

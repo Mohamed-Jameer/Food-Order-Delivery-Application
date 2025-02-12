@@ -10,7 +10,7 @@ public  class UserDAOImpl implements UserDAO {
 
 	    // Database connection
 	    private Connection getConnection() throws SQLException {
-	        return DriverManager.getConnection(URL, USER, PASSWORD);
+	        return DriverManager.getConnection(URL, USER, PASSWORD) ;
 	    }
 
 	    @Override

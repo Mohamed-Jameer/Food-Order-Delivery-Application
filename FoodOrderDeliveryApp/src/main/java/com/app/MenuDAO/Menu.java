@@ -1,6 +1,6 @@
 package com.app.MenuDAO;
 
-public class Menu {
+public class Menu  {
     private int menuId;
     private int restaurantId;
     private String menuName;

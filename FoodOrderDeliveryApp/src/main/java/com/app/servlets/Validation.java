@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/Validation")
-public class Validation extends HttpServlet {
+public class Validation extends HttpServlet  {
 
 	private PrintWriter pw;
 	private RequestDispatcher d;

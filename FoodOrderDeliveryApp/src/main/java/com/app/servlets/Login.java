@@ -20,7 +20,7 @@ import com.app.UserDao.User;
 
 
 @WebServlet("/Login")
-public class Login extends HttpServlet {
+public class Login extends HttpServlet  {
 	
 	private Connection con;
 	private PreparedStatement pstmt;

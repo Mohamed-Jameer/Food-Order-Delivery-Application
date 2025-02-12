@@ -15,7 +15,7 @@ import com.app.orderHistory.OrderHistoryDAOImpl;
  * Servlet implementation class DeleteOrderServelt
  */
 @WebServlet("/DeleteOrderServelt")
-public class DeleteOrderServelt extends HttpServlet {
+public class DeleteOrderServelt extends HttpServlet  {
 	
 	
 	@Override

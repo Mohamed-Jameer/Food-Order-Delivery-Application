@@ -7,7 +7,7 @@ import java.util.List;
 
 
 
-public class RestaurantDAOImpl implements RestaurantDAO {
+public class RestaurantDAOImpl implements RestaurantDAO  {
 
     List<Restaurant> restaurantList = new ArrayList<>();
     

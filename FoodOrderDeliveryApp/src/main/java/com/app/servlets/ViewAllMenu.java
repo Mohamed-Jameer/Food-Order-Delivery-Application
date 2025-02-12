@@ -16,7 +16,7 @@ import com.app.MenuDAO.MenuDAOImpl;
  * Servlet implementation class ViewAllMenu
  */
 @WebServlet("/ViewAllMenu")
-public class ViewAllMenu extends HttpServlet {
+public class ViewAllMenu extends HttpServlet  {
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
