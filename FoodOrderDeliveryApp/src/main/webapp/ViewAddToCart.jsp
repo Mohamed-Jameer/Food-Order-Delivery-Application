@@ -301,7 +301,7 @@
                         grandTotal += totalPrice;
                 %>
                 <tr>
-                    <td><%= item.getMenuName() %></td>
+                    <td><%= item.getMenuName()  %></td>
                     <td>&#8377;<%= item.getPrice() %></td>
                     <td>
                         <form action="UpdateCartServlet" method="post" class="d-inline">
