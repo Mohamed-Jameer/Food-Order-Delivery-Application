@@ -51,6 +51,16 @@
 
 ---
 
+## **📸 Screenshots**  
+
+🔹 **Login Page**  
+![Login Page]![Screenshot (376)](https://github.com/user-attachments/assets/7af1ecb4-7ad7-4c56-99b8-84fc9857ae61)
+
+🔹 **Menu Page**  
+![Menu Page](https://github.com/YourUsername/Food-Order-Delivery-Application/blob/main/screenshots/menu.png)  
+
+---
+
 ### **Set Up Dynamic Web Project**
 - Ensure the project is set up as a Dynamic Web Project:
 - Right-click the project in the Package Explorer.
