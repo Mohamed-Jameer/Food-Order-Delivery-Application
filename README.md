@@ -54,10 +54,12 @@
 ## **📸 Screenshots**  
 
 🔹 **Login Page**  
-![Login Page]![Screenshot (376)](https://github.com/user-attachments/assets/7af1ecb4-7ad7-4c56-99b8-84fc9857ae61)
+![Login Page]!![Screenshot (378)](https://github.com/user-attachments/assets/f6f730ca-9a6b-4333-932f-5d234e1d24b9)
+
 
 🔹 **Menu Page**  
-![Menu Page](https://github.com/YourUsername/Food-Order-Delivery-Application/blob/main/screenshots/menu.png)  
+![Menu Page]![Screenshot (377)](https://github.com/user-attachments/assets/4aaaa525-051b-4eeb-84b7-0d7b152be704)
+
 
 ---
 
