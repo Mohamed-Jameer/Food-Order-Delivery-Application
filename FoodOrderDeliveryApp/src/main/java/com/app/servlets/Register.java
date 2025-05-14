@@ -32,9 +32,10 @@ public class Register extends HttpServlet  {
 		 String passWord = req.getParameter("password");
 		 int mobileNo = Integer.parseInt(req.getParameter("phone"));
 		 String address = req.getParameter("address");
+		 
 		 pw = resp.getWriter();
 		 
-         User user = new User(name,email,passWord,mobileNo,address);
+         User user = new User(name,email,passWord,mobileNo,address,"Customer");
 		 UserDAO userDAOI = new UserDAOImpl();
 		 userDAOI.addUser(user);
 		 

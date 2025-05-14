@@ -476,74 +476,11 @@
     />
 
     <script>
-      let map; // Declare map variable globally
-
-      const showLocationBtn = document.getElementById("showLocationBtn");
-      const closeButton = document.getElementById("closeButton");
-      const mapContainer = document.getElementById("map-container");
-
-      // Function to initialize the map
-      function initializeMap(lat, lon) {
-        if (!map) {
-          // Initialize map if it hasn't been initialized
-          map = L.map("map").setView([lat, lon], 13);
-
-          // Add OpenStreetMap tiles
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution:
-              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-          }).addTo(map);
-
-          // Add a marker at the user's location
-          L.marker([lat, lon])
-            .addTo(map)
-            .bindPopup("<b>You are here</b>")
-            .openPopup();
-        } else {
-          // If the map is already initialized, just update its position
-          map.setView([lat, lon], 13);
-          L.marker([lat, lon])
-            .addTo(map)
-            .bindPopup("<b>You are here</b>")
-            .openPopup();
-        }
-      }
-
-      // Show the map container and fetch user's location
-      showLocationBtn.addEventListener("click", () => {
-        mapContainer.style.display = "block";
-
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              const lat = position.coords.latitude;
-              const lon = position.coords.longitude;
-              initializeMap(lat, lon);
-            },
-            () => {
-              alert("Unable to retrieve your location.");
-            }
-          );
-        } else {
-          alert("Geolocation is not supported by this browser.");
-        }
-      });
-
-      // Close the map container when clicking the close button
-      closeButton.addEventListener("click", () => {
-        mapContainer.style.display = "none";
-      });
-
-      // Close the map container when clicking outside the map
-      mapContainer.addEventListener("click", (event) => {
-        if (event.target === mapContainer) {
-          mapContainer.style.display = "none";
-        }
-      });
-    </script>
-    
-    <script>
- 
+    // Toggle Profile Box visibility
+    function toggleProfileBox() {
+        var profileBox = document.getElementById("profile-box");
+        profileBox.style.display = (profileBox.style.display === "none" || profileBox.style.display === "") ? "block" : "none";
+    }
 
     // Close the profile box if clicking outside of it
     window.onclick = function(event) {
@@ -564,24 +501,21 @@
     function navigateToEditPage(){
    	 window.location.href = 'UserEdit.jsp';
    }
-    
-    function toggleProfileBox() {
-        var profileBox = document.getElementById("profile-box");
-        // Toggle the display property between none and block
-        if (profileBox.style.display === "none" || profileBox.style.display === "") {
-            profileBox.style.display = "block";
-        } else {
-            profileBox.style.display = "none";
-        }
-    }
-
-    function navigateToBackPage() {
-        window.history.back(); // Go back to the previous page
-    }
+  
 
     function navigateToPage() {
-        // Handle the logout or other page redirection logic here
-        window.location.href = "logout.jsp";
+       
+        // Show the message box with a fade-in effect
+        document.getElementById("logoutMessage").style.display = "block";
+
+        // Redirect to another page after a short delay
+        setTimeout(function() {
+            window.location.href = 'welcome.html';  // Replace with your target page
+        }, 2000);  // 2 seconds delay before redirection
+    }
+    
+    function navigateToBackPage() {
+        window.history.back();
     }
     
     document.addEventListener('DOMContentLoaded', () => {
@@ -597,25 +531,169 @@
             });
         });
     });
-</script>
+      let map; // Declare map variable globally
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+      const showLocationBtn = document.getElementById("showLocationBtn");
+      const closeButton = document.getElementById("closeButton");
+      const mapContainer = document.getElementById("map-container");
+      function initializeMap(lat, lon) {
+        if (!map) {
+          map = L.map("map").setView([lat, lon], 13);
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution:
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          }).addTo(map);
+          L.marker([lat, lon])
+            .addTo(map)
+            .bindPopup("<b>You are here</b>")
+            .openPopup();
+        } else {
+          map.setView([lat, lon], 13);
+          L.marker([lat, lon])
+            .addTo(map)
+            .bindPopup("<b>You are here</b>")
+            .openPopup();
+        }
+      }
+      showLocationBtn.addEventListener("click", () => {
+        mapContainer.style.display = "block";
 
-<!-- Bootstrap JS for carousel functionality -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    // Adding click event listener to all claim buttons
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const lat = position.coords.latitude;
+              const lon = position.coords.longitude;
+              initializeMap(lat, lon);
+            },
+            () => {
+              alert("Unable to retrieve your location.");
+            }
+          );
+        } else {
+          alert("Geolocation is not supported by this browser.");
+        }
+      });
+      closeButton.addEventListener("click", () => {
+        mapContainer.style.display = "none";
+      });
+      mapContainer.addEventListener("click", (event) => {
+        if (event.target === mapContainer) {
+          mapContainer.style.display = "none";
+        }
+      });
+    
+    function navigateToPage() {
+        document.getElementById("logoutMessage").style.display = "block";
+        setTimeout(function() {
+            window.location.href = 'welcome.html'; 
+        }, 2000); 
+    }
+
+    window.onclick = function(event) {
+        var profileBox = document.getElementById("profile-box");
+        var profileButton = document.querySelector(".profile-btn");
+
+        if (event.target !== profileBox && !profileBox.contains(event.target) && event.target !== profileButton && !profileButton.contains(event.target)) {
+            profileBox.style.display = "none"; 
+    };
+    window.onload = function() {
+        document.getElementById("loader-wrapper").style.display = "none";
+        document.getElementById("main-content").style.display = "block";
+    };
+    
+    
+    function toggleProfileBox() {
+        var profileBox = document.getElementById("profile-box");
+        if (profileBox.style.display === "none" || profileBox.style.display === "") {
+            profileBox.style.display = "block";
+        } else {
+            profileBox.style.display = "none";
+        }
+    }
+    
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const images = document.querySelectorAll('.card-img-top');
+
+        images.forEach((image) => {
+            image.addEventListener('mouseover', () => {
+                image.style.filter = 'brightness(1.1)';
+            });
+
+            image.addEventListener('mouseout', () => {
+                image.style.filter = 'brightness(1)'; 
+            });
+        });
+    });
     document.querySelectorAll('.btn-claim').forEach(button => {
         button.addEventListener('click', () => {
-            alert('Offer claimed successfully!'); // Displaying alert on claiming an offer
+            alert('Offer claimed successfully!');
         });
     });
     
-    function navigateToBackPage() {
-        window.history.back();
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+ // Toggle Profile Box
+    function toggleProfileBox() {
+        var profileBox = document.getElementById("profile-box");
+        profileBox.style.display = (profileBox.style.display === "block") ? "none" : "block";
     }
-</script>
 
+    // Close Profile Box when clicking outside
+    document.addEventListener("click", function(event) {
+        var profileBox = document.getElementById("profile-box");
+        var profileBtn = document.querySelector(".profile-btn");
+        if (!profileBox.contains(event.target) && !profileBtn.contains(event.target)) {
+            profileBox.style.display = "none";
+        }
+    });
+
+    // Navigate to Edit Profile
+    function navigateToEditPage() {
+        window.location.href = "EditProfile.jsp"; // Change this to your actual Edit Profile page
+    }
+
+    // Logout Function
+    function navigateToPage() {
+        window.location.href = "LogoutServlet"; // Ensure this correctly handles session logout
+    }
+
+   
+
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
